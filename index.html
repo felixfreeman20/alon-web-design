@@ -148,7 +148,7 @@
                 <h3 style="color: white;">⚡ Nexus AI</h3>
                 <p style="color: #999;">A futuristic SaaS landing page featuring dark mode, bento grids, and neon glow effects.</p>
                 <br>
-                <a href="#" target="_blank" style="color: #8b5cf6; text-decoration: none; font-weight: 700;">View Live Project →</a>
+                <a href="https://nexus-ai-demo-ten.vercel.app" target="_blank" style="color: #8b5cf6; text-decoration: none; font-weight: 700;">View Live Project →</a>
             </div>
 
         </div>
@@ -226,7 +226,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Clock Logic
         function updateClock() {
             const timeOptions = { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
             const dateOptions = { timeZone: 'Asia/Bangkok', day: '2-digit', month: 'short' };
@@ -238,7 +237,6 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // FAQ Toggle Logic
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
                 const item = button.parentElement;
@@ -246,7 +244,6 @@
             });
         });
 
-        // 3D Tilt Effect
         const tiltCards = document.querySelectorAll('.tilt');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -264,7 +261,6 @@
             });
         });
 
-        // Scroll Reveal
         const handleScroll = () => {
             document.querySelectorAll('.reveal').forEach(el => {
                 const revealTop = el.getBoundingClientRect().top;
@@ -274,7 +270,6 @@
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', handleScroll);
 
-        // Form Submission
         document.getElementById('jobForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
@@ -292,7 +287,6 @@
             btn.innerText = "Send Message";
         });
 
-        // --- THE SECRET TRIGGER (Staff HQ) ---
         let count = 0;
         document.getElementById('footer-trigger').addEventListener('click', () => {
             count++;

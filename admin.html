@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlonWebDesign | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f0f7ff; padding: 40px; margin: 0; }
+        .container { max-width: 1100px; margin: 0 auto; background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,102,255,0.08); }
+        h1 { color: #0066FF; font-size: 2rem; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: left; background: #f8faff; padding: 18px; color: #888; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 18px; border-bottom: 1px solid #f0f0f0; vertical-align: top; font-size: 0.95rem; }
+        .date { color: #aaa; font-weight: bold; }
+        .email-link { color: #0066FF; font-weight: 700; text-decoration: none; background: #eef5ff; padding: 5px 12px; border-radius: 50px; }
+        
+        /* Password Wall */
+        #auth-wall { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0066FF; display: flex; align-items: center; justify-content: center; z-index: 10000; }
+        .login-box { background: white; padding: 50px; border-radius: 40px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2); width: 90%; max-width: 400px; }
+        .login-box h2 { margin-bottom: 10px; color: #1a1a1a; }
+        .login-box input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 15px; margin: 20px 0; font-size: 1rem; text-align: center; outline: none; transition: 0.3s; }
+        .login-box input:focus { border-color: #0066FF; }
+        .login-box button { background: #0066FF; color: white; border: none; padding: 15px 40px; border-radius: 15px; font-weight: 700; cursor: pointer; width: 100%; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <div id="auth-wall">
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <p style="color: #777;">Enter your secret key to view leads</p>
+            <input type="password" id="passInput" placeholder="••••••••">
+            <button onclick="checkPass()">Access Dashboard</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>📊 Project Leads</h1>
+        <div id="loader" style="color: #666;">Waiting for authentication...</div>
+        <table id="leadsTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Received</th>
+                    <th>Client Name</th>
+                    <th>Email Address</th>
+                    <th>Project Idea</th>
+                </tr>
+            </thead>
+            <tbody id="leadsBody"></tbody>
+        </table>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // --- PASTE YOUR FIREBASE CONFIG FROM YOUR MAIN FILE BELOW ---
+        const firebaseConfig = {
+            apiKey: "YOUR_KEY",
+            authDomain: "YOUR_DOMAIN",
+            projectId: "YOUR_ID",
+            storageBucket: "YOUR_BUCKET",
+            messagingSenderId: "YOUR_SENDER",
+            appId: "YOUR_APP"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Password Logic
+        window.checkPass = () => {
+            const pass = document.getElementById('passInput').value;
+            if(pass === 'MONEYTIME10') {
+                document.getElementById('auth-wall').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('auth-wall').style.display = 'none';
+                    loadLeads();
+                }, 300);
+            } else {
+                alert('Access Denied: Incorrect Password');
+            }
+        };
+
+        async function loadLeads() {
+            const loader = document.getElementById('loader');
+            loader.innerText = "Fetching your leads...";
+            
+            try {
+                const q = query(collection(db, "jobs"), orderBy("time", "desc"));
+                const querySnapshot = await getDocs(q);
+                const tableBody = document.getElementById('leadsBody');
+                
+                loader.style.display = 'none';
+                document.getElementById('leadsTable').style.display = 'table';
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const dateFormatted = data.time?.toDate().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) || 'New';
+                    
+                    const row = `<tr>
+                        <td class="date">${dateFormatted}</td>
+                        <td><strong>${data.name}</strong></td>
+                        <td><a href="mailto:${data.email}" class="email-link">${data.email}</a></td>
+                        <td style="line-height: 1.5; color: #444;">${data.details}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                loader.innerText = "Error loading leads. Check Firestore Rules.";
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

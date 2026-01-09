@@ -28,6 +28,18 @@
             overflow-x: hidden;
         }
 
+        /* --- Scroll Animation Classes --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* --- Navigation --- */
         nav {
             position: fixed;
@@ -50,18 +62,6 @@
             text-decoration: none;
         }
 
-        .logo span { color: var(--text-dark); }
-
-        nav ul { display: flex; list-style: none; }
-        nav ul li { margin-left: 30px; }
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: 0.3s;
-        }
-        nav ul li a:hover { color: var(--primary-blue); }
-
         /* --- Hero Section --- */
         .hero {
             height: 100vh;
@@ -74,23 +74,8 @@
             background: radial-gradient(circle at 90% 10%, #e6f0ff 0%, #ffffff 50%);
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 span {
-            color: var(--primary-blue);
-            text-shadow: 0 0 20px var(--glow-blue);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #555;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; }
+        .hero h1 span { color: var(--primary-blue); text-shadow: 0 0 20px var(--glow-blue); }
 
         .btn-glow {
             padding: 15px 35px;
@@ -103,94 +88,26 @@
             transition: 0.4s;
         }
 
-        .btn-glow:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px var(--primary-blue);
-        }
+        /* --- Skills Progress Bars --- */
+        #skills { padding: 80px 8%; background: white; }
+        .skill-container { max-width: 600px; margin: 0 auto; }
+        .skill-bar-bg { background: #eee; border-radius: 20px; margin-bottom: 20px; height: 12px; overflow: hidden; }
+        .skill-per { background: var(--primary-blue); height: 100%; border-radius: 20px; width: 0; transition: width 2s ease-in-out; }
+        .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; }
 
         /* --- Projects --- */
         #projects { padding: 100px 8%; background: #f8fbff; }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: white;
-            padding: 25px;
-            border-radius: 24px;
-            border: 1px solid rgba(0, 102, 255, 0.1);
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            border-color: var(--primary-blue);
-            transform: translateY(-5px);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #eee;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            width: fit-content;
-        }
-
-        .badge-school { background: #eef4ff; color: #0066FF; }
-        .badge-live { background: #e6fffa; color: #059669; }
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .project-card { background: white; padding: 25px; border-radius: 24px; border: 1px solid rgba(0, 102, 255, 0.1); transition: 0.3s; }
+        .project-img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; border: 1px solid #eee; }
 
         /* --- Contact --- */
         #contact { padding: 100px 8%; }
-        .contact-card {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0;
-        }
+        .contact-card { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .contact-card input, .contact-card textarea { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #ddd; background: #fafafa; }
+        .contact-btn { width: 100%; padding: 15px; background: var(--primary-blue); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
-        .contact-card input, .contact-card textarea {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-            background: #fafafa;
-            outline: none;
-        }
-
-        .contact-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary-blue);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .contact-btn:hover { background: #0052cc; }
+        .free-badge { color: #059669; font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 20px; }
 
         footer { text-align: center; padding: 40px; color: #888; }
     </style>
@@ -200,95 +117,114 @@
     <nav>
         <a href="#" class="logo">Alon<span>WebDesign</span></a>
         <ul>
-            <li><a href="#projects">Projects</a></li>
+            <li><a href="#projects">Work</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
     <section class="hero">
-        <h1>Building the <span>Future</span>,<br>One Pixel at a Time.</h1>
-        <p>Hi, I'm Alon. I’m a 13-year-old web designer pushing the limits of modern web development.</p>
-        <a href="#projects" class="btn-glow">View My Work</a>
+        <h1>Building the <span>Future</span>.</h1>
+        <p>I'm Alon, a designer specializing in modern, high-tech web experiences.</p>
+        <br>
+        <a href="#contact" class="btn-glow">Get a Free Site</a>
     </section>
 
-    <section id="projects">
-        <h2 class="section-title">Project Showreel</h2>
-        <div class="project-grid">
+    <section id="skills" class="reveal">
+        <h2 style="text-align: center; margin-bottom: 40px;">My Tech Stack</h2>
+        <div class="skill-container">
+            <div class="skill-label"><span>HTML5</span><span>95%</span></div>
+            <div class="skill-bar-bg"><div class="skill-per" style="width: 95%;"></div></div>
             
-            <div class="project-card">
-                <span class="badge badge-school">SCHOOL PRACTICE PROJECT</span>
-                <img src="snack-site.png" alt="Snack Site Preview" class="project-img">
-                <h3>🍿 Snack Delivery Pro</h3>
-                <p>A school practice project focused on e-commerce layout and user experience.</p>
-                <br>
-                <a href="https://the-bag-site.vercel.app" target="_blank" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">Live Demo →</a>
-            </div>
-
-            <div class="project-card">
-                <span class="badge badge-live">LIVE BRAND</span>
-                <div style="height: 180px; background: linear-gradient(45deg, #0066FF, #00CCFF); border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">AlonWebDesign UI</div>
-                <h3>🚀 AlonWebDesign</h3>
-                <p>My professional hub featuring glassmorphism and real-time Firebase connectivity.</p>
-                <br>
-                <a href="#" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">Current Site</a>
-            </div>
-
+            <div class="skill-label"><span>CSS3 / Animations</span><span>90%</span></div>
+            <div class="skill-bar-bg"><div class="skill-per" style="width: 90%;"></div></div>
+            
+            <div class="skill-label"><span>JavaScript</span><span>75%</span></div>
+            <div class="skill-bar-bg"><div class="skill-per" style="width: 75%;"></div></div>
         </div>
     </section>
 
-    <section id="contact">
+    <section id="projects" class="reveal">
+        <h2 style="text-align: center; margin-bottom: 50px;">Project Showreel</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <p style="color: #0066FF; font-weight: bold; font-size: 0.7rem; margin-bottom: 5px;">SCHOOL PRACTICE</p>
+                <img src="snack-site.png" alt="Snack Site" class="project-img">
+                <h3>🍿 Snack Delivery Pro</h3>
+                <p>A school practice project exploring UI/UX for food delivery.</p>
+                <br>
+                <a href="https://the-bag-site.vercel.app" target="_blank" style="color: var(--primary-blue); text-decoration: none; font-weight: bold;">View Project →</a>
+            </div>
+            <div class="project-card">
+                <p style="color: #059669; font-weight: bold; font-size: 0.7rem; margin-bottom: 5px;">LIVE PORTFOLIO</p>
+                <div style="height: 180px; background: #0066FF; border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">AlonWebDesign</div>
+                <h3>🚀 AlonWebDesign</h3>
+                <p>My official hub featuring modern glassmorphism.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="reveal">
         <div class="contact-card">
-            <h2 style="margin-bottom: 20px;">Request a Job</h2>
+            <h2>Let's Build Something</h2>
+            <span class="free-badge">✨ Currently building sites for FREE for my portfolio!</span>
             <form id="jobForm">
                 <input type="text" id="name" placeholder="Your Name" required>
-                <input type="text" id="idea" placeholder="Project Idea" required>
-                <input type="text" id="contactInfo" placeholder="Instagram or Email" required>
-                <textarea id="details" rows="4" placeholder="Describe your vision..."></textarea>
-                <button type="submit" class="contact-btn">Send to Alon</button>
+                <input type="email" id="email" placeholder="Your Email Address" required>
+                <textarea id="details" rows="4" placeholder="Describe your website idea..."></textarea>
+                <button type="submit" class="contact-btn">Send Message</button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 AlonWebDesign. Created by Alon.</p>
+        <p>&copy; 2026 AlonWebDesign</p>
     </footer>
 
     <script type="module">
+        // Firebase setup (Keep your keys here)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "REPLACE_THIS",
-            authDomain: "REPLACE_THIS",
-            projectId: "REPLACE_THIS",
-            storageBucket: "REPLACE_THIS",
-            messagingSenderId: "REPLACE_THIS",
-            appId: "REPLACE_THIS"
+            apiKey: "YOUR_KEY",
+            authDomain: "YOUR_DOMAIN",
+            projectId: "YOUR_ID",
+            storageBucket: "YOUR_BUCKET",
+            messagingSenderId: "YOUR_SENDER",
+            appId: "YOUR_APP"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Scroll Animation Logic
+        window.addEventListener('scroll', () => {
+            let reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                let windowHeight = window.innerHeight;
+                let revealTop = el.getBoundingClientRect().top;
+                if (revealTop < windowHeight - 150) {
+                    el.classList.add('active');
+                }
+            });
+        });
+
+        // Form Submission
         document.getElementById('jobForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
             btn.innerText = "Sending...";
-            
             try {
                 await addDoc(collection(db, "jobs"), {
                     name: document.getElementById('name').value,
-                    idea: document.getElementById('idea').value,
-                    contact: document.getElementById('contactInfo').value,
+                    email: document.getElementById('email').value,
                     details: document.getElementById('details').value,
                     time: new Date()
                 });
-                alert("Request Sent!");
+                alert("Success! I will email you soon.");
                 e.target.reset();
-            } catch (err) {
-                alert("Error sending. Check console.");
-                console.error(err);
-            }
-            btn.innerText = "Send to Alon";
+            } catch (err) { alert("Error! Check console."); console.error(err); }
+            btn.innerText = "Send Message";
         });
     </script>
 </body>

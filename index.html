@@ -120,17 +120,41 @@
 
         .project-card {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 24px;
             border: 1px solid rgba(0, 102, 255, 0.1);
             transition: 0.3s;
             box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
             border-color: var(--primary-blue);
-            transform: scale(1.02);
+            transform: translateY(-5px);
         }
+
+        .project-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .badge-school { background: #eef4ff; color: #0066FF; }
+        .badge-live { background: #e6fffa; color: #059669; }
 
         /* --- Contact --- */
         #contact { padding: 100px 8%; }
@@ -152,10 +176,7 @@
             border: 1px solid #ddd;
             background: #fafafa;
             outline: none;
-            font-size: 1rem;
         }
-
-        .contact-card input:focus { border-color: var(--primary-blue); }
 
         .contact-btn {
             width: 100%;
@@ -166,17 +187,12 @@
             border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
-            font-size: 1rem;
             transition: 0.3s;
         }
 
-        .contact-btn:hover { opacity: 0.9; }
+        .contact-btn:hover { background: #0052cc; }
 
         footer { text-align: center; padding: 40px; color: #888; }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-        }
     </style>
 </head>
 <body>
@@ -191,25 +207,32 @@
 
     <section class="hero">
         <h1>Building the <span>Future</span>,<br>One Pixel at a Time.</h1>
-        <p>Hi, I'm Alon. I’m a 13-year-old web designer pushing the limits of modern web development with high-performance, futuristic sites.</p>
+        <p>Hi, I'm Alon. I’m a 13-year-old web designer pushing the limits of modern web development.</p>
         <a href="#projects" class="btn-glow">View My Work</a>
     </section>
 
     <section id="projects">
         <h2 class="section-title">Project Showreel</h2>
         <div class="project-grid">
+            
             <div class="project-card">
+                <span class="badge badge-school">SCHOOL PRACTICE PROJECT</span>
+                <img src="snack-site.png" alt="Snack Site Preview" class="project-img">
                 <h3>🍿 Snack Delivery Pro</h3>
-                <p>A high-speed delivery platform with a custom ordering system and sleek UI.</p>
+                <p>A school practice project focused on e-commerce layout and user experience.</p>
                 <br>
-                <a href="#" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">Live Demo →</a>
+                <a href="https://the-bag-site.vercel.app" target="_blank" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">Live Demo →</a>
             </div>
+
             <div class="project-card">
+                <span class="badge badge-live">LIVE BRAND</span>
+                <div style="height: 180px; background: linear-gradient(45deg, #0066FF, #00CCFF); border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">AlonWebDesign UI</div>
                 <h3>🚀 AlonWebDesign</h3>
-                <p>My personal brand site featuring glassmorphism and modern tech stacks.</p>
+                <p>My professional hub featuring glassmorphism and real-time Firebase connectivity.</p>
                 <br>
                 <a href="#" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">Current Site</a>
             </div>
+
         </div>
     </section>
 
@@ -217,61 +240,55 @@
         <div class="contact-card">
             <h2 style="margin-bottom: 20px;">Request a Job</h2>
             <form id="jobForm">
-                <input type="text" id="userName" placeholder="Your Name" required>
-                <input type="text" id="projectIdea" placeholder="Project Idea (e.g., Portfolio, Store)" required>
-                <input type="text" id="userContact" placeholder="Your Budget or Instagram Handle" required>
-                <textarea id="projectDetails" rows="4" placeholder="Tell me more about your vision..."></textarea>
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="text" id="idea" placeholder="Project Idea" required>
+                <input type="text" id="contactInfo" placeholder="Instagram or Email" required>
+                <textarea id="details" rows="4" placeholder="Describe your vision..."></textarea>
                 <button type="submit" class="contact-btn">Send to Alon</button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 AlonWebDesign. Created with passion by Alon.</p>
+        <p>&copy; 2026 AlonWebDesign. Created by Alon.</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // IMPORTANT: Replace the values below with your specific Firebase project config!
         const firebaseConfig = {
-            apiKey: "REPLACE_WITH_YOUR_API_KEY",
-            authDomain: "REPLACE_WITH_YOUR_PROJECT.firebaseapp.com",
-            projectId: "REPLACE_WITH_YOUR_PROJECT_ID",
-            storageBucket: "REPLACE_WITH_YOUR_PROJECT.appspot.com",
-            messagingSenderId: "REPLACE_WITH_SENDER_ID",
-            appId: "REPLACE_WITH_APP_ID"
+            apiKey: "REPLACE_THIS",
+            authDomain: "REPLACE_THIS",
+            projectId: "REPLACE_THIS",
+            storageBucket: "REPLACE_THIS",
+            messagingSenderId: "REPLACE_THIS",
+            appId: "REPLACE_THIS"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const form = document.getElementById('jobForm');
-        form.addEventListener('submit', async (e) => {
+        document.getElementById('jobForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = "Sending...";
             
-            const submitBtn = form.querySelector('button');
-            submitBtn.innerText = "Sending...";
-            submitBtn.disabled = true;
-
             try {
                 await addDoc(collection(db, "jobs"), {
-                    name: document.getElementById('userName').value,
-                    idea: document.getElementById('projectIdea').value,
-                    contact: document.getElementById('userContact').value,
-                    details: document.getElementById('projectDetails').value,
-                    timestamp: new Date()
+                    name: document.getElementById('name').value,
+                    idea: document.getElementById('idea').value,
+                    contact: document.getElementById('contactInfo').value,
+                    details: document.getElementById('details').value,
+                    time: new Date()
                 });
-                alert("Message sent successfully! I'll be in touch.");
-                form.reset();
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                alert("Error sending message. Please check the console.");
-            } finally {
-                submitBtn.innerText = "Send to Alon";
-                submitBtn.disabled = false;
+                alert("Request Sent!");
+                e.target.reset();
+            } catch (err) {
+                alert("Error sending. Check console.");
+                console.error(err);
             }
+            btn.innerText = "Send to Alon";
         });
     </script>
 </body>

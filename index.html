@@ -71,9 +71,10 @@
             font-weight: 600;
             color: #666;
             background: #f0f4ff;
-            padding: 5px 12px;
+            padding: 5px 15px;
             border-radius: 50px;
             border: 1px solid rgba(0, 102, 255, 0.1);
+            white-space: nowrap;
         }
 
         nav ul { display: flex; list-style: none; align-items: center; }
@@ -150,13 +151,6 @@
             box-shadow: 0 30px 60px rgba(0, 102, 255, 0.2);
         }
 
-        /* --- Skills --- */
-        #skills { padding: 80px 10%; background: white; }
-        .skill-container { max-width: 700px; margin: 0 auto; }
-        .skill-bar-bg { background: #eef2f7; border-radius: 20px; margin-bottom: 25px; height: 16px; overflow: hidden; border: 1px solid #eee; }
-        .skill-per { background: var(--accent-gradient); height: 100%; border-radius: 20px; width: 0; transition: width 2s ease-in-out; }
-        .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; color: var(--primary-blue); }
-
         /* --- Projects --- */
         #projects { padding: 100px 8%; background: #f0f7ff; }
         .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
@@ -184,7 +178,7 @@
     <nav>
         <div class="nav-left">
             <a href="#" class="logo">AlonWebDesign</a>
-            <div class="local-clock" id="clock">My Time: --:--:--</div>
+            <div class="local-clock" id="clock">Loading Time...</div>
         </div>
         <ul>
             <li><a href="#about">About</a></li>
@@ -211,20 +205,6 @@
                 <p>I’ve always loved music and design, and that helps me understand how to make a site feel smooth. I don’t just build basic layouts, I try to build environments that feel right. Whether you need a sleek landing page or a bold creative portfolio, I dedicate myself to make sure every pixel is perfect. I want every person I work with to be genuinely happy they chose me.</p>
                 <p><strong>Building for Experience:</strong> Right now, I am offering my services for free to select projects so I can grow my portfolio. I am open to any request you have. If you have a vision, I have the tools to build it. Let's create something together!</p>
             </div>
-        </div>
-    </section>
-
-    <section id="skills" class="reveal">
-        <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2rem;">My Tech Skills</h2>
-        <div class="skill-container">
-            <div class="skill-label"><span>HTML5</span></div>
-            <div class="skill-bar-bg"><div class="skill-per" style="width: 95%;"></div></div>
-            
-            <div class="skill-label"><span>CSS3 / Animations</span></div>
-            <div class="skill-bar-bg"><div class="skill-per" style="width: 90%;"></div></div>
-            
-            <div class="skill-label"><span>JavaScript</span></div>
-            <div class="skill-bar-bg"><div class="skill-per" style="width: 75%;"></div></div>
         </div>
     </section>
 
@@ -281,11 +261,26 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Clock Logic
+        // Clock Logic set to Bangkok (GMT+7)
         function updateClock() {
-            const options = { timeZone: 'Israel', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-            const now = new Intl.DateTimeFormat('en-GB', options).format(new Date());
-            document.getElementById('clock').innerText = `My Time: ${now}`;
+            const timeOptions = { 
+                timeZone: 'Asia/Bangkok', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: false 
+            };
+            const dateOptions = {
+                timeZone: 'Asia/Bangkok',
+                day: '2-digit',
+                month: 'short'
+            };
+            
+            const now = new Date();
+            const timeString = new Intl.DateTimeFormat('en-GB', timeOptions).format(now);
+            const dateString = new Intl.DateTimeFormat('en-GB', dateOptions).format(now);
+            
+            document.getElementById('clock').innerText = `BKK: ${dateString} • ${timeString}`;
         }
         setInterval(updateClock, 1000);
         updateClock();

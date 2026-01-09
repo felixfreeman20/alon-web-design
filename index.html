@@ -57,6 +57,8 @@
             border-bottom: 1px solid rgba(0, 102, 255, 0.1);
         }
 
+        .nav-left { display: flex; align-items: center; gap: 20px; }
+
         .logo {
             font-size: 1.6rem;
             font-weight: 700;
@@ -64,10 +66,19 @@
             text-decoration: none;
         }
 
-        nav ul { display: flex; list-style: none; }
+        .local-clock {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #666;
+            background: #f0f4ff;
+            padding: 5px 12px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+
+        nav ul { display: flex; list-style: none; align-items: center; }
         nav ul li { margin-left: 15px; }
         
-        /* Top Right Text: No underline, small background pill */
         nav ul li a {
             text-decoration: none;
             color: var(--text-dark);
@@ -164,13 +175,17 @@
         @media (max-width: 900px) {
             #about { flex-direction: column; text-align: center; }
             .hero h1 { font-size: 3rem; }
+            .nav-left { flex-direction: column; align-items: flex-start; gap: 5px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">AlonWebDesign</a>
+        <div class="nav-left">
+            <a href="#" class="logo">AlonWebDesign</a>
+            <div class="local-clock" id="clock">My Time: --:--:--</div>
+        </div>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Work</a></li>
@@ -193,7 +208,7 @@
             <div class="about-text">
                 <p>Hi, I’m Alon, the founder of AlonWebDesign. I’m a 13 year old developer and graphic designer who believes that the web should be more than just code. I think it should be an experience you actually enjoy looking at.</p>
                 <p>My journey started because I wanted to master the building blocks of the digital world. These days, I combine my technical coding skills in HTML, CSS, and JavaScript with my creative eye in Canva to build websites that don't just work, they really pop.</p>
-                <p>I’ve always loved music and design, and that helps me understand how to make a site feel smooth. I don’t just build basic layouts, I try to build environments that feel right. Whether you need a sleek landing page or a bold creative portfolio, I dedicate 3 to 7 days to make sure every pixel is perfect. I want every person I work with to be genuinely happy they chose me.</p>
+                <p>I’ve always loved music and design, and that helps me understand how to make a site feel smooth. I don’t just build basic layouts, I try to build environments that feel right. Whether you need a sleek landing page or a bold creative portfolio, I dedicate myself to make sure every pixel is perfect. I want every person I work with to be genuinely happy they chose me.</p>
                 <p><strong>Building for Experience:</strong> Right now, I am offering my services for free to select projects so I can grow my portfolio. I am open to any request you have. If you have a vision, I have the tools to build it. Let's create something together!</p>
             </div>
         </div>
@@ -202,19 +217,19 @@
     <section id="skills" class="reveal">
         <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2rem;">My Tech Skills</h2>
         <div class="skill-container">
-            <div class="skill-label"><span>HTML5</span><span>95%</span></div>
+            <div class="skill-label"><span>HTML5</span></div>
             <div class="skill-bar-bg"><div class="skill-per" style="width: 95%;"></div></div>
             
-            <div class="skill-label"><span>CSS3 / Animations</span><span>90%</span></div>
+            <div class="skill-label"><span>CSS3 / Animations</span></div>
             <div class="skill-bar-bg"><div class="skill-per" style="width: 90%;"></div></div>
             
-            <div class="skill-label"><span>JavaScript</span><span>75%</span></div>
+            <div class="skill-label"><span>JavaScript</span></div>
             <div class="skill-bar-bg"><div class="skill-per" style="width: 75%;"></div></div>
         </div>
     </section>
 
     <section id="projects" class="reveal">
-        <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.2rem;">Project Showreel</h2>
+        <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.2rem;">Projects</h2>
         <div class="project-grid">
             <div class="project-card">
                 <p style="color: #0066FF; font-weight: bold; font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 1px;">SCHOOL PRACTICE</p>
@@ -254,7 +269,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // REPLACE THESE WITH YOUR KEYS FROM FIREBASE CONSOLE
         const firebaseConfig = {
             apiKey: "YOUR_KEY",
             authDomain: "YOUR_DOMAIN",
@@ -266,6 +280,15 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // Clock Logic
+        function updateClock() {
+            const options = { timeZone: 'Israel', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const now = new Intl.DateTimeFormat('en-GB', options).format(new Date());
+            document.getElementById('clock').innerText = `My Time: ${now}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
 
         // Scroll Reveal Logic
         const handleScroll = () => {

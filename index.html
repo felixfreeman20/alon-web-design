@@ -20,14 +20,14 @@
 
         body { background-color: var(--bg-white); color: var(--text-dark); overflow-x: hidden; }
 
-        /* --- Staff HQ Style (Added) --- */
+        /* --- Staff HQ Style --- */
         #staff-hq { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; overflow-y: auto; padding: 50px 8%; }
         .hq-close { color: red; cursor: pointer; font-weight: bold; float: right; }
         .hq-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .hq-table th, .hq-table td { border: 1px solid #eee; padding: 12px; text-align: left; }
         .hq-table th { background: #f8faff; }
 
-        /* --- Your Original Styles --- */
+        /* --- Standard Styles --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -132,6 +132,7 @@
     <section id="projects" class="reveal">
         <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.2rem;">Projects</h2>
         <div class="project-grid">
+            
             <div class="project-card tilt">
                 <p style="color: #0066FF; font-weight: bold; font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 1px;">SCHOOL PRACTICE</p>
                 <img src="snack-site.png" alt="Snack Site" class="project-img">
@@ -140,12 +141,16 @@
                 <br>
                 <a href="https://the-bag-site.vercel.app" target="_blank" style="color: var(--primary-blue); text-decoration: none; font-weight: 700;">View Live Project →</a>
             </div>
-            <div class="project-card tilt">
-                <p style="color: #059669; font-weight: bold; font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 1px;">LIVE BRAND</p>
-                <div style="height: 200px; background: var(--accent-gradient); border-radius: 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1.2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">AlonWebDesign</div>
-                <h3>🚀 AlonWebDesign</h3>
-                <p>My official hub featuring modern glassmorphism and real-time forms.</p>
+
+            <div class="project-card tilt" style="background: #0a0a0a; border: 1px solid #333;">
+                <p style="color: #8b5cf6; font-weight: bold; font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 1px;">AI & TECH</p>
+                <img src="nexus-ai.png" alt="Nexus AI Demo" class="project-img" style="border: 1px solid #333;">
+                <h3 style="color: white;">⚡ Nexus AI</h3>
+                <p style="color: #999;">A futuristic SaaS landing page featuring dark mode, bento grids, and neon glow effects.</p>
+                <br>
+                <a href="#" target="_blank" style="color: #8b5cf6; text-decoration: none; font-weight: 700;">View Live Project →</a>
             </div>
+
         </div>
     </section>
 

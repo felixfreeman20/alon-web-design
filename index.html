@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlonWebDesign | Modern Web Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0066FF;
+            --glow-blue: rgba(0, 102, 255, 0.4);
+            --bg-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --text-dark: #1a1a1a;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px); /* Glassmorphism */
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--text-dark); }
+
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 30px; }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--primary-blue); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            background: radial-gradient(circle at 90% 10%, #e6f0ff 0%, #ffffff 50%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-blue);
+            text-shadow: 0 0 20px var(--glow-blue);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .btn-glow {
+            padding: 15px 35px;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px var(--glow-blue);
+            transition: 0.4s;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--primary-blue);
+        }
+
+        /* --- Projects --- */
+        #projects { padding: 100px 8%; background: #f8fbff; }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+        }
+
+        .project-card:hover {
+            border-color: var(--primary-blue);
+            transform: scale(1.02);
+        }
+
+        /* --- Contact --- */
+        #contact { padding: 100px 8%; }
+        .contact-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .contact-card input, .contact-card textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+            outline: none;
+        }
+
+        .contact-card input:focus { border-color: var(--primary-blue); }
+
+        .contact-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        footer { text-align: center; padding: 40px; color: #888; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">Alon<span>WebDesign</span></a>
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Building the <span>Future</span>,<br>One Pixel at a Time.</h1>
+        <p>Hi, I'm Alon. I’m a 13-year-old web designer pushing the limits of modern web development with high-performance, futuristic sites.</p>
+        <a href="#projects" class="btn-glow">View My Work</a>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Project Showreel</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>🍿 Snack Delivery Pro</h3>
+                <p>A high-speed delivery platform with a custom ordering system and sleek UI.</p>
+                <br>
+                <a href="#" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">Live Demo →</a>
+            </div>
+            <div class="project-card">
+                <h3>🚀 AlonWebDesign</h3>
+                <p>My personal brand site featuring glassmorphism and modern tech stacks.</p>
+                <br>
+                <a href="#" style="color: var(--primary-blue); font-weight: bold; text-decoration: none;">Current Site</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-card">
+            <h2 style="margin-bottom: 20px;">Request a Job</h2>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="text" placeholder="Project Idea (e.g., Portfolio, Store)" required>
+                <input type="text" placeholder="Your Budget or Instagram Handle" required>
+                <textarea rows="4" placeholder="Tell me more about your vision..."></textarea>
+                <button type="submit" class="contact-btn">Send to Alon</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 AlonWebDesign. Created with passion by Alon.</p>
+    </footer>
+
+</body>
+</html>

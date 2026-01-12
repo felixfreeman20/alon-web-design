@@ -22,16 +22,28 @@
 
         /* --- Custom Cursor Style --- */
         #custom-cursor {
-            width: 20px;
-            height: 20px;
-            background: var(--primary-blue);
-            border-radius: 50%;
+            width: 24px;
+            height: 24px;
             position: fixed;
             pointer-events: none;
             z-index: 10001;
-            mix-blend-mode: difference;
+            /* Blue recolored standard pointer icon */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%230066FF' stroke='white' stroke-width='1'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.83-4.83 3.06 7.04c.14.34.53.5.87.35l1.97-.85c.34-.14.5-.53.35-.87l-3.07-7.03 6.35-.31c.32-.02.48-.41.25-.63L6.35 2.86c-.26-.26-.85-.07-.85.35z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
             transition: transform 0.1s ease-out;
-            transform: translate(-50%, -50%);
+        }
+
+        /* --- Trail Particle Style --- */
+        .cursor-trail {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
         }
 
         /* --- Staff HQ Style --- */
@@ -269,16 +281,31 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- Custom Cursor Logic ---
+        // --- Custom Cursor & Trail Logic ---
         const cursor = document.getElementById('custom-cursor');
+        
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
+
+            // Create trail particle
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+
+            // Animate and remove
+            setTimeout(() => {
+                trail.style.transform = 'scale(0.1)';
+                trail.style.opacity = '0';
+                setTimeout(() => trail.remove(), 500);
+            }, 10);
         });
 
         document.querySelectorAll('a, button, .faq-question').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%, -50%) scale(2)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(1.5)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
         });
 
         function updateClock() {

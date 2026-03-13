@@ -6,9 +6,6 @@
     <title>AlonWebDesign | Premium Web Experiences</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* =========================================
-           CORE VARIABLES & RESET
-           ========================================= */
         :root {
             --primary-blue: #0066FF;
             --secondary-blue: #00D1FF;
@@ -21,366 +18,65 @@
             --glass-bg: rgba(15, 22, 41, 0.7);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-            cursor: none; /* Custom cursor active */
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; cursor: none; }
+        body { background-color: var(--dark-bg); color: var(--text-light); overflow-x: hidden; }
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        /* --- Cursor --- */
+        #custom-cursor { width: 24px; height: 24px; border: 2px solid var(--secondary-blue); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10001; transition: transform 0.1s ease-out; box-shadow: 0 0 15px rgba(0, 209, 255, 0.3); }
+        .cursor-trail { width: 8px; height: 8px; background: var(--primary-blue); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transition: transform 0.4s ease-out, opacity 0.4s ease-out; }
 
-        /* =========================================
-           CUSTOM CURSOR & STATUS BADGE
-           ========================================= */
-        #custom-cursor {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--secondary-blue);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 10001;
-            transition: transform 0.15s ease-out, background-color 0.15s ease;
-            box-shadow: 0 0 15px rgba(0, 209, 255, 0.3);
-        }
+        /* --- Nav --- */
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--glass-bg); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.5rem; font-weight: 800; color: white; text-decoration: none; }
+        .logo span { color: var(--secondary-blue); }
+        nav ul { display: flex; list-style: none; gap: 40px; }
+        nav ul li a { text-decoration: none; color: var(--text-light); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        nav ul li a:hover { color: var(--secondary-blue); }
 
-        .cursor-trail {
-            width: 8px;
-            height: 8px;
-            background: var(--primary-blue);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-        }
-
-        .status-badge {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: var(--surface-dark);
-            padding: 12px 24px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 1000;
-            border: 1px solid var(--glass-border);
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            backdrop-filter: blur(10px);
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #22c55e;
-            border-radius: 50%;
-            box-shadow: 0 0 12px #22c55e;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 20px #22c55e; }
-            100% { transform: scale(0.95); opacity: 0.8; }
-        }
-
-        /* =========================================
-           NAVIGATION
-           ========================================= */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span {
-            color: var(--secondary-blue);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--accent-gradient);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        /* =========================================
-           GLOBAL LAYOUT & REVEAL ANIMATIONS
-           ========================================= */
-        section { padding: 120px 8%; position: relative; }
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* --- Global Layout --- */
+        section { padding: 120px 8%; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        .section-title { text-align: center; font-size: 3rem; margin-bottom: 20px; font-weight: 800; letter-spacing: -1px; }
-        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 60px auto; font-size: 1.15rem; }
         .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* =========================================
-           HERO SECTION
-           ========================================= */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at 15% 30%, rgba(0, 102, 255, 0.15) 0%, transparent 40%), 
-                        radial-gradient(circle at 85% 70%, rgba(0, 209, 255, 0.15) 0%, transparent 40%);
-        }
-
+        /* --- Hero --- */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .hero h1 { font-size: 5rem; max-width: 1000px; line-height: 1.1; margin-bottom: 30px; letter-spacing: -2px; }
-        .hero p { font-size: 1.35rem; color: var(--text-muted); max-width: 700px; margin-bottom: 50px; }
-        
-        .hero-btns { display: flex; gap: 20px; justify-content: center; }
-        .btn { padding: 18px 40px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.4s; font-size: 1.05rem; display: inline-block; }
-        
-        .btn-primary { 
-            background: var(--accent-gradient); 
-            color: white; 
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3); 
-            border: none;
-        }
-        .btn-primary:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 40px rgba(0, 209, 255, 0.4); 
-        }
-        
-        .btn-secondary { 
-            background: transparent; 
-            color: white; 
-            border: 2px solid var(--glass-border); 
-            backdrop-filter: blur(10px);
-        }
-        .btn-secondary:hover { 
-            border-color: var(--secondary-blue); 
-            background: rgba(0, 102, 255, 0.1); 
-            transform: translateY(-5px); 
-        }
+        .btn { padding: 18px 40px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.4s; display: inline-block; border: none; cursor: pointer; }
+        .btn-primary { background: var(--accent-gradient); color: white; box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3); }
 
-        /* =========================================
-           INTERACTIVE SANDBOX
-           ========================================= */
-        #sandbox { background: var(--surface-dark); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
-        .sandbox-wrap { display: flex; gap: 60px; justify-content: center; align-items: center; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
-        
-        .controls { display: flex; flex-direction: column; gap: 20px; flex: 1; min-width: 300px; }
-        .control-btn { 
-            background: rgba(255,255,255,0.03); 
-            color: var(--text-muted); 
-            border: 1px solid var(--glass-border); 
-            padding: 20px; 
-            border-radius: 16px; 
-            font-weight: 600; 
-            font-family: monospace; 
-            font-size: 1rem;
-            transition: 0.3s; 
-            text-align: left; 
-        }
-        .control-btn:hover { 
-            background: rgba(0, 102, 255, 0.1); 
-            border-color: var(--secondary-blue); 
-            color: white;
-            padding-left: 30px; 
-        }
+        /* --- Labs (Sandbox) --- */
+        #sandbox { background: var(--surface-dark); }
+        .sandbox-wrap { display: flex; gap: 60px; justify-content: center; align-items: center; flex-wrap: wrap; }
+        .controls { display: flex; flex-direction: column; gap: 15px; }
+        .control-btn { background: rgba(255,255,255,0.03); color: var(--text-muted); border: 1px solid var(--glass-border); padding: 18px; border-radius: 12px; font-family: monospace; transition: 0.3s; text-align: left; }
+        .control-btn:hover { border-color: var(--secondary-blue); color: white; }
+        .demo-box { width: 320px; height: 350px; background: #0a0f1a; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; border: 1px solid #333; }
+        .demo-glow { box-shadow: 0 0 40px var(--primary-blue); border-color: var(--secondary-blue); }
+        .demo-glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); }
+        .demo-float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .demo-box { 
-            width: 350px; 
-            height: 400px; 
-            background: #111827; 
-            border-radius: 24px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
-            border: 1px solid #333; 
-        }
-        
-        /* Sandbox Dynamic Classes */
-        .demo-glow { box-shadow: 0 0 50px rgba(0, 102, 255, 0.5), inset 0 0 20px rgba(0, 209, 255, 0.3); border-color: var(--secondary-blue); }
-        .demo-glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .demo-float { transform: translateY(-20px); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(-20px); } 50% { transform: translateY(0px); } 100% { transform: translateY(-20px); } }
+        /* --- Vault --- */
+        .vault-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .vault-card { background: var(--surface-dark); padding: 35px; border-radius: 24px; border: 1px solid var(--glass-border); }
+        .lock-icon { font-size: 1.5rem; margin-bottom: 15px; display: block; }
 
-        /* =========================================
-           PORTFOLIO GRID
-           ========================================= */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
-        .project-card { 
-            background: var(--surface-dark); 
-            border-radius: 30px; 
-            overflow: hidden; 
-            border: 1px solid var(--glass-border); 
-            transition: 0.4s; 
-        }
-        .project-card:hover { 
-            transform: translateY(-15px); 
-            border-color: var(--secondary-blue); 
-            box-shadow: 0 20px 50px rgba(0, 102, 255, 0.15); 
-        }
-        
-        .project-img { width: 100%; height: 280px; object-fit: cover; border-bottom: 1px solid var(--glass-border); background: #1a2235; }
-        .project-info { padding: 40px; }
-        .project-info h3 { font-size: 1.6rem; margin-bottom: 10px; }
-        
-        .tech-tags { display: flex; gap: 10px; margin: 20px 0 30px 0; flex-wrap: wrap; }
-        .tag { font-size: 0.8rem; background: rgba(0, 102, 255, 0.1); color: var(--secondary-blue); padding: 8px 16px; border-radius: 50px; font-weight: 700; border: 1px solid rgba(0, 209, 255, 0.2); }
-        
-        .project-links a { font-size: 1rem; font-weight: 800; text-decoration: none; color: white; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .project-links a:hover { color: var(--secondary-blue); gap: 15px; }
-
-        /* =========================================
-           YOUTUBE & VAULT
-           ========================================= */
-        .video-wrapper { 
-            max-width: 1000px; 
-            margin: 40px auto; 
-            position: relative; 
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0; 
-            border-radius: 24px; 
-            overflow: hidden; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4); 
-            border: 1px solid var(--glass-border); 
-        }
+        /* --- Video --- */
+        .video-wrapper { max-width: 900px; margin: 40px auto; position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; border: 1px solid var(--glass-border); }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        #vault { background: var(--surface-dark); border-top: 1px solid var(--glass-border); }
-        .vault-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .vault-card { 
-            background: var(--dark-bg); 
-            padding: 40px; 
-            border-radius: 24px; 
-            border: 1px solid var(--glass-border); 
-            transition: 0.3s; 
-        }
-        .vault-card:hover { border-color: var(--secondary-blue); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 102, 255, 0.1); }
-        .vault-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
-        .download-btn { color: var(--secondary-blue); text-decoration: none; font-weight: 800; font-size: 0.95rem; display: inline-block; margin-top: 20px; transition: 0.3s; }
-        .download-btn:hover { gap: 10px; color: white; }
+        /* --- Contact --- */
+        .contact-card { max-width: 750px; margin: 0 auto; background: var(--surface-dark); padding: 50px; border-radius: 40px; border: 1px solid var(--glass-border); }
+        input, select, textarea { width: 100%; padding: 18px; margin-top: 10px; margin-bottom: 20px; border-radius: 14px; border: 1px solid var(--glass-border); background: var(--dark-bg); color: white; outline: none; }
+        input:focus { border-color: var(--secondary-blue); }
 
-        /* =========================================
-           CONTACT FORM (WEBHOOK READY)
-           ========================================= */
-        .contact-card { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            background: var(--surface-dark); 
-            padding: 60px; 
-            border-radius: 40px; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3); 
-            border: 1px solid var(--glass-border); 
-        }
-        
-        .social-proof-banner { 
-            background: rgba(34, 197, 94, 0.1); 
-            border: 1px solid rgba(34, 197, 94, 0.3); 
-            color: #4ade80; 
-            padding: 18px; 
-            border-radius: 16px; 
-            font-weight: 600; 
-            text-align: center; 
-            margin-bottom: 40px; 
-            font-size: 0.95rem; 
-        }
-
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        .form-group { margin-bottom: 25px; }
-        .form-group.full { grid-column: 1 / -1; }
-        
-        label { display: block; margin-bottom: 10px; font-weight: 700; font-size: 0.95rem; color: var(--text-light); }
-        input, select, textarea { 
-            width: 100%; 
-            padding: 20px; 
-            border-radius: 16px; 
-            border: 1px solid var(--glass-border); 
-            background: var(--dark-bg); 
-            color: white;
-            outline: none; 
-            transition: 0.3s; 
-            font-size: 1rem; 
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--secondary-blue); box-shadow: 0 0 15px rgba(0, 209, 255, 0.1); }
-        
-        footer { text-align: center; padding: 60px; color: var(--text-muted); border-top: 1px solid var(--glass-border); }
-
-        /* =========================================
-           MOBILE RESPONSIVENESS
-           ========================================= */
-        @media (max-width: 900px) {
-            .hero h1 { font-size: 3.5rem; }
-            nav ul { display: none; }
-            .form-grid { grid-template-columns: 1fr; }
-            #custom-cursor, .cursor-trail { display: none; }
-            * { cursor: auto !important; }
-            section { padding: 80px 5%; }
-            .status-badge { bottom: 15px; left: 15px; font-size: 0.75rem; padding: 10px 15px; }
-        }
+        footer { text-align: center; padding: 50px; color: var(--text-muted); font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <div id="custom-cursor"></div>
-
-    <div class="status-badge">
-        <div class="status-dot"></div>
-        STATUS: 1 FREE PORTFOLIO SPOT LEFT
-    </div>
 
     <nav>
         <a href="#" class="logo">Alon<span>WebDesign</span></a>
@@ -394,244 +90,127 @@
 
     <section class="hero">
         <div class="reveal">
-            <h1>Engineered for <br><span class="highlight">Creators & Brands.</span></h1>
-            <p>I build high-performance, custom-coded web experiences designed to turn your viewers into dedicated fans.</p>
-            <div class="hero-btns">
-                <a href="#work" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Request a Site</a>
+            <h1>Websites for <br><span class="highlight">Creators.</span></h1>
+            <p style="color: var(--text-muted); margin-top: 20px; font-size: 1.3rem;">I engineer high-end digital experiences from scratch.</p>
+            <div style="margin-top: 40px;">
+                <a href="#contact" class="btn btn-primary">Start a Project</a>
             </div>
         </div>
     </section>
 
     <section id="sandbox" class="reveal">
-        <h2 class="section-title">Play with the <span class="highlight">Code.</span></h2>
-        <p class="section-subtitle">Click the buttons to inject live CSS into the element below. I don't use templates—I engineer aesthetics.</p>
-        
+        <h2 style="text-align:center; margin-bottom: 50px;">The <span class="highlight">Design Lab</span></h2>
         <div class="sandbox-wrap">
             <div class="controls">
-                <button class="control-btn" onclick="document.getElementById('demo-card').classList.toggle('demo-glow')">.inject { neon-glow }</button>
-                <button class="control-btn" onclick="document.getElementById('demo-card').classList.toggle('demo-glass')">.inject { glassmorphism }</button>
-                <button class="control-btn" onclick="document.getElementById('demo-card').classList.toggle('demo-float')">.inject { float-animation }</button>
+                <button class="control-btn" onclick="document.getElementById('demo').classList.toggle('demo-glow')">.apply(glow_effect)</button>
+                <button class="control-btn" onclick="document.getElementById('demo').classList.toggle('demo-glass')">.apply(glass_morphism)</button>
+                <button class="control-btn" onclick="document.getElementById('demo').classList.toggle('demo-float')">.apply(float_anim)</button>
             </div>
-            <div id="demo-card" class="demo-box">
-                <h3 style="font-size: 2rem; margin-bottom: 10px;" class="highlight">Hello World</h3>
-                <p style="color: var(--text-muted); font-size: 1rem;">I am a raw HTML div.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="work">
-        <h2 class="section-title reveal">Featured <span class="highlight">Work</span></h2>
-        <p class="section-subtitle reveal">A selection of recent development projects.</p>
-        
-        <div class="portfolio-grid reveal">
-            <div class="project-card">
-                <img src="snack-site.png" alt="Snack Site" class="project-img" onerror="this.src='https://via.placeholder.com/600x400/1a2235/00D1FF?text=Project+Preview'">
-                <div class="project-info">
-                    <h3>Snack Delivery Pro</h3>
-                    <p style="color: var(--text-muted);">A mobile-first UI for a delivery concept, focusing on smooth user flow.</p>
-                    <div class="tech-tags">
-                        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Vanilla JS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://the-bag-site.vercel.app" target="_blank">View Live Site <span>↗</span></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <img src="nexus-ai.png" alt="Nexus AI" class="project-img" onerror="this.src='https://via.placeholder.com/600x400/1a2235/00D1FF?text=Project+Preview'">
-                <div class="project-info">
-                    <h3>Nexus AI SaaS</h3>
-                    <p style="color: var(--text-muted);">A premium landing page featuring bento-grid layouts and neon aesthetics.</p>
-                    <div class="tech-tags">
-                        <span class="tag">Dark Mode</span><span class="tag">CSS Grid</span><span class="tag">Animations</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://nexus-ai-demo-ten.vercel.app" target="_blank">View Live Site <span>↗</span></a>
-                    </div>
-                </div>
+            <div id="demo" class="demo-box">
+                <h3 class="highlight">Preview</h3>
+                <p style="font-size: 0.8rem; opacity: 0.5;">Interactive UI</p>
             </div>
         </div>
     </section>
 
     <section id="video" class="reveal">
-        <h2 class="section-title">Behind the <span class="highlight">Screen</span></h2>
-        <p class="section-subtitle">Watch how I build these experiences from scratch.</p>
+        <h2 style="text-align: center; margin-bottom: 30px;">Latest <span class="highlight">Production</span></h2>
         <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/kgZ-hXwjSN4" allowfullscreen></iframe>
         </div>
     </section>
 
     <section id="vault" class="reveal">
-        <h2 class="section-title">The <span class="highlight">Creator Vault</span></h2>
-        <p class="section-subtitle">Free development tools and assets I built for the community.</p>
+        <h2 style="text-align:center; margin-bottom: 50px;">The <span class="highlight">Exclusive Vault</span></h2>
         <div class="vault-grid">
             <div class="vault-card">
-                <h3>✨ Glow Cursor Code</h3>
-                <p style="color: var(--text-muted);">The exact CSS and JavaScript I use to create the smooth blue trail cursor on this site.</p>
-                <a href="#" class="download-btn">Copy Snippet →</a>
+                <span class="lock-icon">🔒</span>
+                <h3>Glow Cursor JS</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">The exact script used on this site.</p>
+                <a href="#contact" style="color: var(--secondary-blue); text-decoration: none; font-weight: 700; display: block; margin-top: 20px;">Request Access →</a>
             </div>
             <div class="vault-card">
-                <h3>🎨 Obsidian Color Palette</h3>
-                <p style="color: var(--text-muted);">A collection of high-contrast hex codes specifically designed for modern dark mode UI.</p>
-                <a href="#" class="download-btn">View Palette →</a>
+                <span class="lock-icon">🔒</span>
+                <h3>Obsidian UI Pack</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Dark mode color system and grid layouts.</p>
+                <a href="#contact" style="color: var(--secondary-blue); text-decoration: none; font-weight: 700; display: block; margin-top: 20px;">Request Access →</a>
             </div>
             <div class="vault-card">
-                <h3>📱 High-CTR Thumbnails</h3>
-                <p style="color: var(--text-muted);">My custom layout template for designing tech and coding thumbnails that actually get clicks.</p>
-                <a href="#" class="download-btn">Open Template →</a>
+                <span class="lock-icon">🔒</span>
+                <h3>High-CTR Assets</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Thumbnail templates for creators.</p>
+                <a href="#contact" style="color: var(--secondary-blue); text-decoration: none; font-weight: 700; display: block; margin-top: 20px;">Request Access →</a>
             </div>
         </div>
     </section>
 
     <section id="contact" class="reveal">
         <div class="contact-card">
-            <h2 class="section-title" style="margin-bottom: 10px; font-size: 2.5rem;">Claim Your <span class="highlight">Site</span></h2>
-            
-            <div class="social-proof-banner">
-                🎥 Note: Priority is given to clients willing to record a short 30-second video review for my YouTube channel once the site is complete!
-            </div>
-            
+            <h2 style="text-align:center; margin-bottom: 40px;">Request <span class="highlight">Access</span></h2>
             <form id="webhookForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Your Name / Brand</label>
-                        <input type="text" id="name" placeholder="e.g. John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Discord Tag (For Contact)</label>
-                        <input type="text" id="discord" placeholder="e.g. alon#0000" required>
-                    </div>
-                    <div class="form-group full">
-                        <label>What kind of site do you need?</label>
-                        <select id="type">
-                            <option value="Creator Portfolio">Creator / Influencer Portfolio</option>
-                            <option value="Small Business">Small Business Landing Page</option>
-                            <option value="Personal Blog">Personal Blog</option>
-                            <option value="Other">Other Custom Idea</option>
-                        </select>
-                    </div>
-                    <div class="form-group full">
-                        <label>Project Vision</label>
-                        <textarea id="vision" rows="5" placeholder="Tell me about the style, colors, and goals for your site..." required></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%; font-size: 1.1rem; margin-top: 10px;">Submit Request to HQ</button>
+                <label>Name</label>
+                <input type="text" id="name" placeholder="Brand Name" required>
+                <label>Discord Tag</label>
+                <input type="text" id="discord" placeholder="user#0000" required>
+                <label>Message</label>
+                <textarea id="vision" rows="4" placeholder="I want the Vault access / I need a website..." required></textarea>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Submit to Alon HQ</button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p style="font-weight: 800; color: white; margin-bottom: 5px; font-size: 1.2rem;">AlonWebDesign</p>
-        <p>&copy; 2026 | Built from scratch. No templates.</p>
+        <p>AlonWebDesign &copy; 2026 | Built for the 1%</p>
     </footer>
 
     <script>
-        // --- 1. Custom Cursor Logic ---
+        // Cursor
         const cursor = document.getElementById('custom-cursor');
-        
-        // Only run cursor logic on desktop to prevent mobile lag
-        if (window.innerWidth > 900) {
-            document.addEventListener('mousemove', (e) => {
-                // Move main cursor ring
-                cursor.style.left = e.clientX - 12 + 'px'; // Center the 24px ring
-                cursor.style.top = e.clientY - 12 + 'px';
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 12 + 'px';
+            cursor.style.top = e.clientY - 12 + 'px';
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX - 4 + 'px';
+            trail.style.top = e.clientY - 4 + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => { trail.style.opacity = '0'; setTimeout(() => trail.remove(), 400); }, 20);
+        });
 
-                // Create trail dot
-                const trail = document.createElement('div');
-                trail.className = 'cursor-trail';
-                trail.style.left = e.clientX - 4 + 'px'; // Center the 8px dot
-                trail.style.top = e.clientY - 4 + 'px';
-                document.body.appendChild(trail);
+        // Reveal
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-                // Animate and remove trail dot
-                setTimeout(() => {
-                    trail.style.transform = 'scale(0.1)';
-                    trail.style.opacity = '0';
-                    setTimeout(() => trail.remove(), 400);
-                }, 15);
-            });
-
-            // Hover effects for buttons and links
-            document.querySelectorAll('a, button, input, textarea, select').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'scale(1.5)';
-                    cursor.style.backgroundColor = 'rgba(0, 209, 255, 0.1)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'scale(1)';
-                    cursor.style.backgroundColor = 'transparent';
-                });
-            });
-        }
-
-        // --- 2. Scroll Reveal Animations ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.15 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // --- 3. Discord Webhook Integration ---
+        // Webhook Submission
         document.getElementById('webhookForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = "Sending to HQ...";
-            btn.style.opacity = "0.7";
-
-            // Grab form values
-            const name = document.getElementById('name').value;
-            const discord = document.getElementById('discord').value;
-            const type = document.getElementById('type').value;
-            const vision = document.getElementById('vision').value;
-
-            // Format message for Discord
+            btn.innerText = "Transmitting...";
+            
             const payload = {
-                content: "🚀 **New Website Lead!**",
                 embeds: [{
-                    title: "Incoming Project Request",
-                    color: 3447003, // Blue color
+                    title: "New Incoming Request",
+                    color: 255,
                     fields: [
-                        { name: "Name", value: name, inline: true },
-                        { name: "Discord Tag", value: discord, inline: true },
-                        { name: "Project Type", value: type },
-                        { name: "Vision/Details", value: vision }
-                    ],
-                    timestamp: new Date().toISOString()
+                        { name: "User", value: document.getElementById('name').value, inline: true },
+                        { name: "Discord", value: document.getElementById('discord').value, inline: true },
+                        { name: "Message", value: document.getElementById('vision').value }
+                    ]
                 }]
             };
 
-            // !!! IMPORTANT: PASTE YOUR DISCORD WEBHOOK URL HERE !!!
-            const webhookURL = "https://discord.com/api/webhooks/1481928249800921172/uA4_YRB6NHlmnm4yG5M64dV7em69MO5YSjgnk9jDPdfzUKXokSgoIbg08VD-N5i2n8La"; 
-
             try {
-                if(webhookURL === "https://discord.com/api/webhooks/1481928249800921172/uA4_YRB6NHlmnm4yG5M64dV7em69MO5YSjgnk9jDPdfzUKXokSgoIbg08VD-N5i2n8La") {
-                    alert("Developer Note: You need to paste your Discord Webhook URL into the JavaScript for this to work!");
-                    btn.innerText = originalText;
-                    btn.style.opacity = "1";
-                    return;
-                }
-
-                await fetch(webhookURL, {
+                await fetch("https://discord.com/api/webhooks/1481928249800921172/uA4_YRB6NHlmnm4yG5M64dV7em69MO5YSjgnk9jDPdfzUKXokSgoIbg08VD-N5i2n8La", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                
-                alert("Request successfully sent! I will message you on Discord shortly.");
-                e.target.reset(); // Clear form
-            } catch (err) {
-                alert("There was an error sending your request. Please try again.");
-                console.error(err);
-            }
-            
-            btn.innerText = originalText;
-            btn.style.opacity = "1";
+                alert("Success! Check your Discord.");
+                e.target.reset();
+            } catch (err) { alert("Error sending."); }
+            btn.innerText = "Submit to Alon HQ";
         });
     </script>
 </body>

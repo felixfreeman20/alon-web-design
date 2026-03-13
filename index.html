@@ -3,86 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlonWebDesign | Premium Web Experiences</title>
+    <title>AlonWebDesign | Premium Web Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* =========================================
+           CORE SYSTEM
+           ========================================= */
         :root {
             --primary-blue: #0066FF;
             --secondary-blue: #00D1FF;
             --dark-bg: #050914;
-            --surface-dark: #0f1629;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --surface: #0f172a;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
             --accent-gradient: linear-gradient(135deg, #0066FF 0%, #00D1FF 100%);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(15, 22, 41, 0.7);
+            --glass: rgba(15, 23, 42, 0.8);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; cursor: none; }
-        body { background-color: var(--dark-bg); color: var(--text-light); overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+            cursor: none;
+        }
 
-        /* --- Cursor --- */
-        #custom-cursor { width: 24px; height: 24px; border: 2px solid var(--secondary-blue); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10001; transition: transform 0.1s ease-out; box-shadow: 0 0 15px rgba(0, 209, 255, 0.3); }
-        .cursor-trail { width: 8px; height: 8px; background: var(--primary-blue); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transition: transform 0.4s ease-out, opacity 0.4s ease-out; }
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        /* --- Nav --- */
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--glass-bg); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
-        .logo { font-size: 1.5rem; font-weight: 800; color: white; text-decoration: none; }
+        /* --- Custom Cursor --- */
+        #cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: 0.15s ease-out;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            letter-spacing: -1px;
+        }
+
         .logo span { color: var(--secondary-blue); }
-        nav ul { display: flex; list-style: none; gap: 40px; }
-        nav ul li a { text-decoration: none; color: var(--text-light); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
-        nav ul li a:hover { color: var(--secondary-blue); }
 
-        /* --- Global Layout --- */
+        nav ul { display: flex; list-style: none; gap: 35px; }
+        nav ul a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        nav ul a:hover { color: white; }
+
+        /* --- Layout --- */
         section { padding: 120px 8%; }
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         /* --- Hero --- */
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 { font-size: 5rem; max-width: 1000px; line-height: 1.1; margin-bottom: 30px; letter-spacing: -2px; }
-        .btn { padding: 18px 40px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.4s; display: inline-block; border: none; cursor: pointer; }
-        .btn-primary { background: var(--accent-gradient); color: white; box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3); }
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
+        }
 
-        /* --- Labs (Sandbox) --- */
-        #sandbox { background: var(--surface-dark); }
-        .sandbox-wrap { display: flex; gap: 60px; justify-content: center; align-items: center; flex-wrap: wrap; }
-        .controls { display: flex; flex-direction: column; gap: 15px; }
-        .control-btn { background: rgba(255,255,255,0.03); color: var(--text-muted); border: 1px solid var(--glass-border); padding: 18px; border-radius: 12px; font-family: monospace; transition: 0.3s; text-align: left; }
-        .control-btn:hover { border-color: var(--secondary-blue); color: white; }
-        .demo-box { width: 320px; height: 350px; background: #0a0f1a; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; border: 1px solid #333; }
-        .demo-glow { box-shadow: 0 0 40px var(--primary-blue); border-color: var(--secondary-blue); }
-        .demo-glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); }
-        .demo-float { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .hero h1 { font-size: 5.5rem; line-height: 1; margin-bottom: 20px; letter-spacing: -3px; }
+        .hero p { font-size: 1.4rem; color: var(--text-dim); max-width: 650px; }
 
-        /* --- Vault --- */
-        .vault-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .vault-card { background: var(--surface-dark); padding: 35px; border-radius: 24px; border: 1px solid var(--glass-border); }
-        .lock-icon { font-size: 1.5rem; margin-bottom: 15px; display: block; }
+        /* --- Interactive Lab (Sandbox) --- */
+        .lab-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background: var(--surface);
+            padding: 60px;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+        }
 
-        /* --- Video --- */
-        .video-wrapper { max-width: 900px; margin: 40px auto; position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; border: 1px solid var(--glass-border); }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .lab-preview {
+            height: 400px;
+            background: var(--dark-bg);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border);
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-        /* --- Contact --- */
-        .contact-card { max-width: 750px; margin: 0 auto; background: var(--surface-dark); padding: 50px; border-radius: 40px; border: 1px solid var(--glass-border); }
-        input, select, textarea { width: 100%; padding: 18px; margin-top: 10px; margin-bottom: 20px; border-radius: 14px; border: 1px solid var(--glass-border); background: var(--dark-bg); color: white; outline: none; }
+        .lab-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-dim);
+            text-align: left;
+            font-family: monospace;
+            transition: 0.3s;
+        }
+        .lab-btn:hover { border-color: var(--secondary-blue); color: white; transform: translateX(10px); }
+
+        /* Classes for Lab JS */
+        .glow-fx { box-shadow: 0 0 60px rgba(0, 102, 255, 0.4); border-color: var(--secondary-blue) !important; }
+        .float-fx { animation: floating 3s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        /* --- Projects Grid --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .card {
+            background: var(--surface);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            transition: 0.4s;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--secondary-blue); }
+        .card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .tag { font-size: 0.75rem; background: rgba(0, 102, 255, 0.1); color: var(--secondary-blue); padding: 5px 12px; border-radius: 50px; margin-right: 8px; font-weight: 700; }
+
+        /* --- Video Fix (16:9) --- */
+        .video-box {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 30px;
+            background: #000;
+            border: 1px solid var(--border);
+            margin: 40px 0;
+        }
+        .video-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- Form --- */
+        .contact-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 60px;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
         input:focus { border-color: var(--secondary-blue); }
+        .submit-btn {
+            width: 100%;
+            padding: 22px;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .submit-btn:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4); }
 
-        footer { text-align: center; padding: 50px; color: var(--text-muted); font-size: 0.9rem; }
+        footer { text-align: center; padding: 60px; opacity: 0.4; font-size: 0.8rem; border-top: 1px solid var(--border); }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3.5rem; }
+            .lab-container { grid-template-columns: 1fr; }
+            #cursor { display: none; }
+            * { cursor: auto !important; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
+    <div id="cursor"></div>
 
     <nav>
-        <a href="#" class="logo">Alon<span>WebDesign</span></a>
+        <a href="#" class="logo">ALON<span>DESIGN</span></a>
         <ul>
-            <li><a href="#sandbox">Labs</a></li>
-            <li><a href="#work">Work</a></li>
+            <li><a href="#lab">The Lab</a></li>
+            <li><a href="#projects">Projects</a></li>
             <li><a href="#vault">Vault</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -90,113 +252,140 @@
 
     <section class="hero">
         <div class="reveal">
-            <h1>Websites for <br><span class="highlight">Creators.</span></h1>
-            <p style="color: var(--text-muted); margin-top: 20px; font-size: 1.3rem;">I engineer high-end digital experiences from scratch.</p>
-            <div style="margin-top: 40px;">
-                <a href="#contact" class="btn btn-primary">Start a Project</a>
+            <h1>The Future of <br><span class="highlight">Creator Web.</span></h1>
+            <p>I engineer high-performance digital spaces for creators who demand more than just a template.</p>
+        </div>
+    </section>
+
+    <section id="lab" class="reveal">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">The <span class="highlight">Design Lab</span></h2>
+        <div class="lab-container">
+            <div class="lab-controls">
+                <button class="lab-btn" onclick="toggleFx('glow')">>> Injected_Glow_Module()</button>
+                <button class="lab-btn" onclick="toggleFx('float')">>> Execute_Vertical_Motion()</button>
+                <button class="lab-btn" onclick="location.href='#contact'">>> Request_Custom_Asset()</button>
+            </div>
+            <div id="preview" class="lab-preview">
+                <h3 class="highlight" style="font-size: 2rem;">PREVIEW</h3>
+                <p style="opacity: 0.5;">Active Component</p>
             </div>
         </div>
     </section>
 
-    <section id="sandbox" class="reveal">
-        <h2 style="text-align:center; margin-bottom: 50px;">The <span class="highlight">Design Lab</span></h2>
-        <div class="sandbox-wrap">
-            <div class="controls">
-                <button class="control-btn" onclick="document.getElementById('demo').classList.toggle('demo-glow')">.apply(glow_effect)</button>
-                <button class="control-btn" onclick="document.getElementById('demo').classList.toggle('demo-glass')">.apply(glass_morphism)</button>
-                <button class="control-btn" onclick="document.getElementById('demo').classList.toggle('demo-float')">.apply(float_anim)</button>
+    <section id="projects">
+        <h2 class="reveal" style="margin-bottom: 50px;">Selected <span class="highlight">Works</span></h2>
+        <div class="grid">
+            <div class="card reveal">
+                <span class="tag">E-COMMERCE</span>
+                <h3>The Bag Shop</h3>
+                <p style="color: var(--text-dim); margin-top: 15px;">A clean, high-speed delivery platform optimized for mobile conversions.</p>
+                <a href="https://the-bag-site.vercel.app" style="color: var(--secondary-blue); display: block; margin-top: 20px; text-decoration: none; font-weight: 700;">Live Preview →</a>
             </div>
-            <div id="demo" class="demo-box">
-                <h3 class="highlight">Preview</h3>
-                <p style="font-size: 0.8rem; opacity: 0.5;">Interactive UI</p>
+            <div class="card reveal">
+                <span class="tag">SAAS</span>
+                <h3>Nexus AI</h3>
+                <p style="color: var(--text-dim); margin-top: 15px;">Dark-themed landing page with custom bento-style layouts.</p>
+                <a href="https://nexus-ai-demo-ten.vercel.app" style="color: var(--secondary-blue); display: block; margin-top: 20px; text-decoration: none; font-weight: 700;">Live Preview →</a>
             </div>
         </div>
     </section>
 
     <section id="video" class="reveal">
-        <h2 style="text-align: center; margin-bottom: 30px;">Latest <span class="highlight">Production</span></h2>
-        <div class="video-wrapper">
+        <h2 style="text-align: center; margin-bottom: 10px;">Production <span class="highlight">Breakdown</span></h2>
+        <p style="text-align: center; color: var(--text-dim); margin-bottom: 40px;">Watch the process behind the code.</p>
+        <div class="video-box">
             <iframe src="https://www.youtube.com/embed/kgZ-hXwjSN4" allowfullscreen></iframe>
         </div>
     </section>
 
     <section id="vault" class="reveal">
-        <h2 style="text-align:center; margin-bottom: 50px;">The <span class="highlight">Exclusive Vault</span></h2>
-        <div class="vault-grid">
-            <div class="vault-card">
-                <span class="lock-icon">🔒</span>
+        <h2 style="margin-bottom: 40px;">Open <span class="highlight">Assets</span></h2>
+        <div class="grid">
+            <div class="card">
                 <h3>Glow Cursor JS</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">The exact script used on this site.</p>
-                <a href="#contact" style="color: var(--secondary-blue); text-decoration: none; font-weight: 700; display: block; margin-top: 20px;">Request Access →</a>
+                <p style="color: var(--text-dim);">The exact script powering the motion on this page.</p>
+                <button onclick="location.href='#contact'" style="background: none; border: none; color: var(--secondary-blue); font-weight: 800; margin-top: 20px; cursor: pointer;">GET ACCESS</button>
             </div>
-            <div class="vault-card">
-                <span class="lock-icon">🔒</span>
-                <h3>Obsidian UI Pack</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Dark mode color system and grid layouts.</p>
-                <a href="#contact" style="color: var(--secondary-blue); text-decoration: none; font-weight: 700; display: block; margin-top: 20px;">Request Access →</a>
-            </div>
-            <div class="vault-card">
-                <span class="lock-icon">🔒</span>
-                <h3>High-CTR Assets</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Thumbnail templates for creators.</p>
-                <a href="#contact" style="color: var(--secondary-blue); text-decoration: none; font-weight: 700; display: block; margin-top: 20px;">Request Access →</a>
+            <div class="card">
+                <h3>Obsidian UI</h3>
+                <p style="color: var(--text-dim);">The color palette and grid system of this site.</p>
+                <button onclick="location.href='#contact'" style="background: none; border: none; color: var(--secondary-blue); font-weight: 800; margin-top: 20px; cursor: pointer;">GET ACCESS</button>
             </div>
         </div>
     </section>
 
     <section id="contact" class="reveal">
-        <div class="contact-card">
-            <h2 style="text-align:center; margin-bottom: 40px;">Request <span class="highlight">Access</span></h2>
-            <form id="webhookForm">
-                <label>Name</label>
-                <input type="text" id="name" placeholder="Brand Name" required>
-                <label>Discord Tag</label>
-                <input type="text" id="discord" placeholder="user#0000" required>
-                <label>Message</label>
-                <textarea id="vision" rows="4" placeholder="I want the Vault access / I need a website..." required></textarea>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Submit to Alon HQ</button>
+        <div class="contact-wrap">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 10px;">Ready to <span class="highlight">Build?</span></h2>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 40px;">Orders go straight to my Discord HQ.</p>
+            
+            <form id="alonForm">
+                <input type="text" id="name" placeholder="Full Name / Brand" required>
+                <input type="text" id="discord" placeholder="Discord Tag (alon#0000)" required>
+                <select id="type">
+                    <option value="Portfolio">Creator Portfolio</option>
+                    <option value="Business">Business Site</option>
+                    <option value="Asset">Vault Asset Access</option>
+                </select>
+                <textarea id="msg" rows="5" placeholder="Your vision..." required></textarea>
+                <button type="submit" class="submit-btn">Send to HQ</button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>AlonWebDesign &copy; 2026 | Built for the 1%</p>
+        &copy; 2026 ALONWEBDESIGN | BUILT FOR THE BOLD
     </footer>
 
     <script>
-        // Cursor
-        const cursor = document.getElementById('custom-cursor');
+        // 1. Cursor Logic
+        const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 12 + 'px';
-            cursor.style.top = e.clientY - 12 + 'px';
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.left = e.clientX - 4 + 'px';
-            trail.style.top = e.clientY - 4 + 'px';
-            document.body.appendChild(trail);
-            setTimeout(() => { trail.style.opacity = '0'; setTimeout(() => trail.remove(), 400); }, 20);
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+            
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = e.clientX - 3 + 'px';
+            dot.style.top = e.clientY - 3 + 'px';
+            document.body.appendChild(dot);
+            
+            setTimeout(() => {
+                dot.style.transform = 'scale(0)';
+                dot.style.opacity = '0';
+                setTimeout(() => dot.remove(), 200);
+            }, 50);
         });
 
-        // Reveal
+        // 2. Lab Logic
+        function toggleFx(type) {
+            const p = document.getElementById('preview');
+            if(type === 'glow') p.classList.toggle('glow-fx');
+            if(type === 'float') p.classList.toggle('float-fx');
+        }
+
+        // 3. Reveal Observer
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-        // Webhook Submission
-        document.getElementById('webhookForm').addEventListener('submit', async (e) => {
+        // 4. Discord Integration
+        document.getElementById('alonForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
             btn.innerText = "Transmitting...";
-            
+
             const payload = {
+                username: "Alon HQ Bot",
                 embeds: [{
-                    title: "New Incoming Request",
-                    color: 255,
+                    title: "🚀 New Project Request",
+                    color: 25500,
                     fields: [
-                        { name: "User", value: document.getElementById('name').value, inline: true },
+                        { name: "Name", value: document.getElementById('name').value, inline: true },
                         { name: "Discord", value: document.getElementById('discord').value, inline: true },
-                        { name: "Message", value: document.getElementById('vision').value }
+                        { name: "Type", value: document.getElementById('type').value },
+                        { name: "Vision", value: document.getElementById('msg').value }
                     ]
                 }]
             };
@@ -204,13 +393,13 @@
             try {
                 await fetch("https://discord.com/api/webhooks/1481928249800921172/uA4_YRB6NHlmnm4yG5M64dV7em69MO5YSjgnk9jDPdfzUKXokSgoIbg08VD-N5i2n8La", {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(payload)
                 });
-                alert("Success! Check your Discord.");
+                alert("Message received! Check your Discord.");
                 e.target.reset();
-            } catch (err) { alert("Error sending."); }
-            btn.innerText = "Submit to Alon HQ";
+            } catch(err) { alert("Error sending."); }
+            btn.innerText = "Send to HQ";
         });
     </script>
 </body>

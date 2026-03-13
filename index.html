@@ -12,84 +12,130 @@
             --glow-blue: rgba(0, 102, 255, 0.4);
             --bg-white: #ffffff;
             --bg-light: #f8faff;
-            --text-dark: #1a1a1a;
-            --text-gray: #555;
+            --text-dark: #0f172a;
+            --text-gray: #475569;
             --accent-gradient: linear-gradient(135deg, #0066FF 0%, #00D1FF 100%);
-            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --obsidian-dark: #0a0f1a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; cursor: none; }
-        body { background-color: var(--bg-white); color: var(--text-dark); line-height: 1.6; }
+        body { background-color: var(--bg-white); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
 
-        /* --- Cursor --- */
-        #custom-cursor { width: 24px; height: 24px; position: fixed; pointer-events: none; z-index: 10001; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%230066FF' stroke='white' stroke-width='1'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.83-4.83 3.06 7.04c.14.34.53.5.87.35l1.97-.85c.34-.14.5-.53.35-.87l-3.07-7.03 6.35-.31c.32-.02.48-.41.25-.63L6.35 2.86c-.26-.26-.85-.07-.85.35z'/%3E%3C/svg%3E"); background-size: contain; transition: transform 0.1s ease-out; }
+        /* --- Custom Cursor --- */
+        #custom-cursor { width: 24px; height: 24px; position: fixed; pointer-events: none; z-index: 10001; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%230066FF' stroke='white' stroke-width='1'%3E%3Cpath d='M5.5 3.21V20.8c0 .45.54.67.85.35l4.83-4.83 3.06 7.04c.14.34.53.5.87.35l1.97-.85c.34-.14.5-.53.35-.87l-3.07-7.03 6.35-.31c.32-.02.48-.41.25-.63L6.35 2.86c-.26-.26-.85-.07-.85.35z'/%3E%3C/svg%3E"); background-size: contain; transition: transform 0.15s ease-out; }
         .cursor-trail { width: 8px; height: 8px; background: var(--secondary-blue); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transition: transform 0.4s ease-out, opacity 0.4s ease-out; }
 
-        /* --- Layout --- */
-        section { padding: 100px 10%; }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        /* --- Global Layout --- */
+        section { padding: 100px 8%; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; font-weight: 800; }
-        .section-title span { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 20px; font-weight: 800; letter-spacing: -1px; }
+        .section-subtitle { text-align: center; color: var(--text-gray); max-width: 600px; margin: 0 auto 60px auto; font-size: 1.1rem; }
+        .highlight { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         /* --- Nav --- */
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: var(--glass-bg); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid rgba(0, 102, 255, 0.05); }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; letter-spacing: -1px; }
-        nav ul { display: flex; list-style: none; gap: 20px; }
-        nav ul li a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--glass-bg); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid rgba(0, 102, 255, 0.1); }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; letter-spacing: -0.5px; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul li a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
         nav ul li a:hover { color: var(--primary-blue); }
 
         /* --- Hero --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at top right, rgba(0,209,255,0.05), transparent), radial-gradient(circle at bottom left, rgba(0,102,255,0.05), transparent); }
-        .hero h1 { font-size: 4rem; max-width: 900px; line-height: 1.1; margin-bottom: 20px; }
-        .hero p { font-size: 1.25rem; color: var(--text-gray); max-width: 600px; margin-bottom: 40px; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at 10% 20%, rgba(0,209,255,0.08) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(0,102,255,0.08) 0%, transparent 40%); }
+        .hero h1 { font-size: 4.5rem; max-width: 1000px; line-height: 1.1; margin-bottom: 25px; letter-spacing: -2px; }
+        .hero p { font-size: 1.3rem; color: var(--text-gray); max-width: 650px; margin-bottom: 40px; }
         .hero-btns { display: flex; gap: 20px; }
-        .btn { padding: 16px 32px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.3s; }
-        .btn-primary { background: var(--accent-gradient); color: white; box-shadow: 0 10px 20px var(--glow-blue); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px var(--glow-blue); }
-        .btn-secondary { background: #f0f4ff; color: var(--primary-blue); }
-        .btn-secondary:hover { background: #e0e9ff; }
+        .btn { padding: 18px 36px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.4s; font-size: 1.05rem; }
+        .btn-primary { background: var(--accent-gradient); color: white; box-shadow: 0 10px 30px var(--glow-blue); }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px var(--glow-blue); }
+        .btn-secondary { background: white; color: var(--primary-blue); border: 2px solid rgba(0,102,255,0.1); }
+        .btn-secondary:hover { border-color: var(--primary-blue); background: #f8faff; transform: translateY(-3px); }
 
         /* --- Trust Indicators --- */
-        .trust-bar { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; padding: 40px 10%; background: var(--bg-light); }
-        .trust-item { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--primary-blue); font-size: 0.9rem; }
+        .trust-bar { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; padding: 40px 8%; background: var(--bg-light); border-top: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03); }
+        .trust-item { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text-dark); font-size: 0.95rem; }
+        .trust-item span { color: var(--primary-blue); font-size: 1.2rem; }
+
+        /* --- Interactive Sandbox (Proof of Skill) --- */
+        #sandbox { background: var(--obsidian-dark); color: white; border-radius: 40px; margin: 50px 8%; padding: 80px 5%; text-align: center; position: relative; overflow: hidden; }
+        .sandbox-wrap { display: flex; gap: 50px; justify-content: center; align-items: center; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; }
+        .controls { display: flex; flex-direction: column; gap: 15px; flex: 1; min-width: 250px; text-align: left; }
+        .control-btn { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; border-radius: 12px; font-weight: 600; font-family: monospace; transition: 0.3s; text-align: left; position: relative; overflow: hidden; }
+        .control-btn:hover { background: rgba(0,102,255,0.2); border-color: var(--primary-blue); padding-left: 25px; }
+        .demo-box { width: 300px; height: 350px; background: #1a1a1a; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #333; }
+        /* Dynamic JS Classes */
+        .demo-glow { box-shadow: 0 0 40px var(--primary-blue), inset 0 0 20px var(--secondary-blue); border-color: var(--secondary-blue); }
+        .demo-glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .demo-float { transform: translateY(-20px); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(-20px); } 50% { transform: translateY(0px); } 100% { transform: translateY(-20px); } }
+
+        /* --- About Section --- */
+        #about { display: flex; align-items: center; gap: 60px; background: var(--bg-white); }
+        .about-visual { flex: 1; height: 450px; background: var(--accent-gradient); border-radius: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; box-shadow: 0 30px 60px rgba(0, 102, 255, 0.15); position: relative; overflow: hidden; }
+        .about-visual::after { content: ''; position: absolute; width: 200%; height: 200%; background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent); transform: rotate(45deg); animation: shine 6s infinite; }
+        @keyframes shine { 0% { top: -200%; left: -200%; } 100% { top: 200%; left: 200%; } }
+        .about-text { flex: 1.2; }
+        .about-text p { margin-bottom: 20px; font-size: 1.1rem; color: var(--text-gray); }
 
         /* --- Portfolio --- */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .project-card { background: white; border-radius: 24px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; }
-        .project-card:hover { transform: translateY(-10px); border-color: var(--primary-blue); }
-        .project-img { width: 100%; height: 220px; background: #eee; object-fit: cover; }
-        .project-info { padding: 25px; }
-        .tech-tags { display: flex; gap: 8px; margin: 15px 0; }
-        .tag { font-size: 0.7rem; background: #f0f4ff; color: var(--primary-blue); padding: 4px 10px; border-radius: 50px; font-weight: 700; }
-        .project-links { display: flex; gap: 15px; margin-top: 15px; }
-        .project-links a { font-size: 0.85rem; font-weight: 700; text-decoration: none; color: var(--primary-blue); }
+        #work { background: var(--bg-light); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; perspective: 1000px; }
+        .project-card { background: white; border-radius: 30px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); transition: transform 0.1s ease-out, box-shadow 0.3s ease; box-shadow: 0 15px 35px rgba(0,0,0,0.04); transform-style: preserve-3d; }
+        .project-img { width: 100%; height: 240px; object-fit: cover; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .project-info { padding: 30px; }
+        .tech-tags { display: flex; gap: 10px; margin: 15px 0 25px 0; flex-wrap: wrap; }
+        .tag { font-size: 0.75rem; background: var(--bg-light); color: var(--primary-blue); padding: 6px 14px; border-radius: 50px; font-weight: 700; border: 1px solid rgba(0,102,255,0.1); }
+        .project-links a { font-size: 0.95rem; font-weight: 800; text-decoration: none; color: var(--text-dark); display: flex; align-items: center; gap: 5px; transition: 0.3s; }
+        .project-links a:hover { color: var(--primary-blue); gap: 10px; }
 
-        /* --- Process --- */
-        .process-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .process-card { text-align: center; padding: 30px; }
-        .process-num { width: 50px; height: 50px; background: var(--accent-gradient); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 800; }
+        /* --- Process & Why Me --- */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .feature-card { background: white; padding: 40px 30px; border-radius: 24px; border: 1px solid #eee; text-align: center; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--primary-blue); box-shadow: 0 20px 40px rgba(0,102,255,0.1); }
+        .step-num { width: 60px; height: 60px; background: var(--bg-light); color: var(--primary-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: 800; font-size: 1.5rem; }
 
-        /* --- Tools & Experiments --- */
-        #tools { background: #0a0a0a; color: white; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .tool-card { padding: 30px; border-radius: 20px; background: #1a1a1a; border: 1px solid #333; transition: 0.3s; cursor: pointer; }
-        .tool-card:hover { border-color: var(--secondary-blue); background: #222; }
+        /* --- YouTube Section --- */
+        #video { background: var(--obsidian-dark); color: white; border-radius: 40px; margin: 0 8%; padding: 80px 5%; text-align: center; }
+        .video-container { max-width: 800px; margin: 0 auto; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 2px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        /* --- Contact Form --- */
-        .contact-wrap { max-width: 700px; margin: 0 auto; background: var(--bg-light); padding: 50px; border-radius: 30px; }
+        /* --- Creator FAQ --- */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { margin-bottom: 15px; border-radius: 20px; border: 1px solid #eee; overflow: hidden; transition: 0.3s; }
+        .faq-item:hover { border-color: rgba(0,102,255,0.3); }
+        .faq-question { width: 100%; padding: 25px; background: white; border: none; text-align: left; font-size: 1.1rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-dark); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: var(--bg-light); color: var(--text-gray); padding: 0 25px; line-height: 1.7; }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 25px 25px 25px; }
+
+        /* --- Contact --- */
+        #contact { background: var(--bg-light); }
+        .contact-wrap { max-width: 800px; margin: 0 auto; background: white; padding: 60px; border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); }
+        .social-proof-banner { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 15px; border-radius: 12px; font-weight: 600; text-align: center; margin-bottom: 30px; font-size: 0.95rem; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
-        input, select, textarea { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; outline: none; transition: 0.3s; }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary-blue); }
+        .form-group.full { grid-column: 1 / -1; }
+        label { display: block; margin-bottom: 10px; font-weight: 700; font-size: 0.9rem; color: var(--text-dark); }
+        input, select, textarea { width: 100%; padding: 18px; border-radius: 16px; border: 2px solid #eee; background: #fafafa; outline: none; transition: 0.3s; font-size: 1rem; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary-blue); background: white; }
+        
+        /* --- Staff HQ --- */
+        #staff-hq { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-white); z-index: 9999; overflow-y: auto; padding: 50px 8%; }
+        .hq-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .hq-table th, .hq-table td { border: 1px solid #eee; padding: 15px; text-align: left; }
+        .hq-table th { background: var(--bg-light); color: var(--primary-blue); font-weight: 800; }
 
-        /* --- Mobile --- */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+        footer { text-align: center; padding: 60px; color: var(--text-gray); background: white; }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3rem; }
             nav ul { display: none; }
+            #about { flex-direction: column; text-align: center; }
+            .form-grid { grid-template-columns: 1fr; }
+            #sandbox { margin: 20px 0; border-radius: 0; }
             #custom-cursor { display: none; }
-            * { cursor: auto; }
-            section { padding: 60px 5%; }
+            * { cursor: auto !important; }
         }
     </style>
 </head>
@@ -97,182 +143,266 @@
 
     <div id="custom-cursor"></div>
 
+    <div id="staff-hq">
+        <span style="color: red; cursor: pointer; font-weight: bold; float: right; font-size: 1.2rem;" onclick="document.getElementById('staff-hq').style.display='none'">[X] Close Panel</span>
+        <h1 style="font-size: 2.5rem; margin-bottom: 20px;"><span class="highlight">🛡️ Staff HQ</span> - Leads</h1>
+        <table class="hq-table">
+            <thead>
+                <tr><th>Date</th><th>Name</th><th>Contact</th><th>Type</th><th>Details</th></tr>
+            </thead>
+            <tbody id="hq-body"></tbody>
+        </table>
+    </div>
+
     <nav>
         <a href="#" class="logo">AlonWebDesign</a>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#work">Projects</a></li>
-            <li><a href="#process">Process</a></li>
-            <li><a href="#tools">Labs</a></li>
+            <li><a href="#video">Watch</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
     <section class="hero">
         <div class="reveal">
-            <h1>Modern Websites for <span>Creators</span> & Small Businesses</h1>
-            <p>I build high-performance, custom-coded web experiences designed to turn visitors into followers and customers.</p>
-            <div class="hero-btns">
+            <h1>Modern Websites for <span class="highlight">Creators</span> & Brands.</h1>
+            <p>I build high-performance, custom-coded web experiences designed to turn your audience into dedicated followers and customers.</p>
+            <div class="hero-btns" style="justify-content: center;">
                 <a href="#work" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Request a Website</a>
+                <a href="#contact" class="btn btn-secondary">Request a Site</a>
             </div>
         </div>
     </section>
 
-    <div class="trust-bar">
-        <div class="trust-item">✔ 5+ Projects Built</div>
-        <div class="trust-item">✔ 7-Day Delivery</div>
-        <div class="trust-item">✔ Modern Tech Stack</div>
-        <div class="trust-item">✔ 100% Free Portfolio Spots</div>
+    <div class="trust-bar reveal">
+        <div class="trust-item"><span>✦</span> 5+ Projects Built</div>
+        <div class="trust-item"><span>✦</span> Fast Delivery</div>
+        <div class="trust-item"><span>✦</span> Clean Custom Code</div>
+        <div class="trust-item"><span>✦</span> Free Portfolio Spots</div>
     </div>
 
-    <section id="work" class="reveal">
-        <h2 class="section-title">Latest <span>Work</span></h2>
-        <div class="portfolio-grid">
-            <div class="project-card">
-                <div class="project-img" style="background: url('snack-site.png') center/cover;"></div>
+    <section id="sandbox" class="reveal">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Don't just look. <span class="highlight">Play with the code.</span></h2>
+        <p style="color: #888; margin-bottom: 50px;">Click the buttons to inject live CSS into the element below. This is how I build custom aesthetics.</p>
+        
+        <div class="sandbox-wrap">
+            <div class="controls">
+                <button class="control-btn" onclick="document.getElementById('demo-card').classList.toggle('demo-glow')">.inject { neon-glow }</button>
+                <button class="control-btn" onclick="document.getElementById('demo-card').classList.toggle('demo-glass')">.inject { glassmorphism }</button>
+                <button class="control-btn" onclick="document.getElementById('demo-card').classList.toggle('demo-float')">.inject { float-animation }</button>
+            </div>
+            <div id="demo-card" class="demo-card">
+                <h3 style="font-size: 1.8rem; margin-bottom: 10px;" class="highlight">Hello World</h3>
+                <p style="color: #aaa; font-size: 0.9rem;">I am a raw HTML div.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="reveal">
+        <div class="about-visual">
+            <h2 style="font-size: 4rem; z-index: 2;">🎨</h2>
+            <p style="font-weight: bold; font-size: 1.2rem; z-index: 2; margin-top: 10px;">Hi, I'm Alon.</p>
+        </div>
+        <div class="about-text">
+            <h2 class="section-title" style="text-align: left;">The Developer <span class="highlight">Behind the Screen</span></h2>
+            <p>I’m a 13-year-old developer and designer who believes the web shouldn't be boring. I started coding because I wanted to master the building blocks of the digital world.</p>
+            <p>Today, I combine technical skills in HTML, CSS, and JavaScript with an eye for design. I don't use basic Drag-and-Drop templates. I write clean, custom code so your website runs faster and looks exactly how you imagine it.</p>
+            <p><strong>Building for Experience:</strong> Right now, I am offering my services for free to select creators and businesses so I can grow my professional portfolio. Let's build something awesome together.</p>
+            <a href="#contact" style="display: inline-block; margin-top: 20px; font-weight: bold; color: var(--primary-blue); text-decoration: none; border-bottom: 2px solid var(--primary-blue);">Let's collaborate →</a>
+        </div>
+    </section>
+
+    <section id="work">
+        <h2 class="section-title reveal">Featured <span class="highlight">Projects</span></h2>
+        <p class="section-subtitle reveal">A selection of my recent design and development work.</p>
+        
+        <div class="portfolio-grid reveal">
+            <div class="project-card tilt">
+                <img src="snack-site.png" alt="Snack Site" class="project-img">
                 <div class="project-info">
-                    <h3>Snack Delivery Pro</h3>
-                    <p>A fast, mobile-friendly delivery UI with custom animations.</p>
+                    <h3 style="font-size: 1.4rem;">Snack Delivery Pro</h3>
+                    <p style="color: var(--text-gray); margin-top: 10px;">A clean, mobile-first UI for a local snack delivery concept, focusing on smooth user flow.</p>
                     <div class="tech-tags">
-                        <span class="tag">HTML/CSS</span><span class="tag">JS</span><span class="tag">UI/UX</span>
+                        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Vanilla JS</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://the-bag-site.vercel.app" target="_blank">Live Demo →</a>
+                        <a href="https://the-bag-site.vercel.app" target="_blank">View Live Site <span>↗</span></a>
                     </div>
                 </div>
             </div>
-            <div class="project-card">
-                <div class="project-img" style="background: url('nexus-ai.png') center/cover;"></div>
+            
+            <div class="project-card tilt">
+                <img src="nexus-ai.png" alt="Nexus AI" class="project-img" style="border-bottom: 1px solid #111;">
                 <div class="project-info">
-                    <h3>Nexus AI</h3>
-                    <p>Futuristic SaaS landing page featuring bento-grid layouts.</p>
+                    <h3 style="font-size: 1.4rem;">Nexus AI SaaS</h3>
+                    <p style="color: var(--text-gray); margin-top: 10px;">A premium dark-mode landing page featuring bento-grid layouts and neon aesthetics.</p>
                     <div class="tech-tags">
-                        <span class="tag">Dark Mode</span><span class="tag">Bento Grid</span>
+                        <span class="tag">Dark Mode UI</span><span class="tag">CSS Grid</span><span class="tag">Animations</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://nexus-ai-demo-ten.vercel.app" target="_blank">Live Demo →</a>
+                        <a href="https://nexus-ai-demo-ten.vercel.app" target="_blank">View Live Site <span>↗</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="why" class="reveal" style="background: var(--bg-light);">
-        <h2 class="section-title">Why <span>Choose Me</span>?</h2>
-        <div class="process-container">
-            <div class="process-card">
-                <h3>⚡ Fast Dev</h3>
-                <p>I value your time. Most projects are ready within 7 days.</p>
+    <section style="background: white;">
+        <h2 class="section-title reveal">Why Work <span class="highlight">With Me?</span></h2>
+        <div class="grid-3 reveal" style="margin-bottom: 100px;">
+            <div class="feature-card">
+                <div class="step-num">⚡</div>
+                <h3>Optimized Speed</h3>
+                <p style="color: var(--text-gray); margin-top: 10px;">Custom code means no bloated plugins. Your site loads instantly.</p>
             </div>
-            <div class="process-card">
-                <h3>🎨 Modern Design</h3>
-                <p>No templates. I use clean code and Canva Pro for custom assets.</p>
+            <div class="feature-card">
+                <div class="step-num">🎨</div>
+                <h3>Obsidian Aesthetics</h3>
+                <p style="color: var(--text-gray); margin-top: 10px;">I specialize in modern, dark-themed, and glassmorphic premium designs.</p>
             </div>
-            <div class="process-card">
-                <h3>🤖 AI-Enhanced</h3>
-                <p>I use AI-assisted tools to optimize code for speed and SEO.</p>
+            <div class="feature-card">
+                <div class="step-num">📱</div>
+                <h3>Mobile Perfect</h3>
+                <p style="color: var(--text-gray); margin-top: 10px;">Over 70% of traffic is mobile. I build for the phone first.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title reveal">The <span class="highlight">Workflow</span></h2>
+        <div class="grid-4 reveal">
+            <div class="feature-card" style="padding: 30px 20px;">
+                <h3 class="highlight" style="font-size: 2rem; margin-bottom: 10px;">01</h3>
+                <h4 style="font-size: 1.1rem;">Strategy</h4>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">We discuss your goals via Discord or Email.</p>
+            </div>
+            <div class="feature-card" style="padding: 30px 20px;">
+                <h3 class="highlight" style="font-size: 2rem; margin-bottom: 10px;">02</h3>
+                <h4 style="font-size: 1.1rem;">Design</h4>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">I map out the colors, fonts, and layout structure.</p>
+            </div>
+            <div class="feature-card" style="padding: 30px 20px;">
+                <h3 class="highlight" style="font-size: 2rem; margin-bottom: 10px;">03</h3>
+                <h4 style="font-size: 1.1rem;">Code</h4>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">I build the site from scratch using clean HTML/JS.</p>
+            </div>
+            <div class="feature-card" style="padding: 30px 20px;">
+                <h3 class="highlight" style="font-size: 2rem; margin-bottom: 10px;">04</h3>
+                <h4 style="font-size: 1.1rem;">Launch</h4>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">We go live and share it with your audience.</p>
             </div>
         </div>
     </section>
 
-    <section id="process" class="reveal">
-        <h2 class="section-title">My <span>4-Step</span> Process</h2>
-        <div class="process-container">
-            <div class="process-card">
-                <div class="process-num">1</div>
-                <h4>Discuss Idea</h4>
-                <p>We chat about your vision and goals via Discord/Email.</p>
-            </div>
-            <div class="process-card">
-                <div class="process-num">2</div>
-                <h4>Design Plan</h4>
-                <p>I create a visual moodboard and layout structure.</p>
-            </div>
-            <div class="process-card">
-                <div class="process-num">3</div>
-                <h4>Development</h4>
-                <p>I write clean, responsive code and integrate features.</p>
-            </div>
-            <div class="process-card">
-                <div class="process-num">4</div>
-                <h4>Launch</h4>
-                <p>Your site goes live! I help you share it with the world.</p>
-            </div>
+    <section id="video" class="reveal">
+        <p style="color: var(--secondary-blue); font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; font-size: 0.9rem;">YOUTUBE CHANNEL</p>
+        <h2 style="font-size: 3rem; margin-bottom: 40px;">Just watch my <span class="highlight">latest video.</span></h2>
+        
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/kgZ-hXwjSN4" 
+                title="YouTube video player" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
         </div>
+        <a href="https://www.youtube.com/@AlonWebDesign" target="_blank" class="btn btn-primary" style="display: inline-block; margin-top: 40px; background: white; color: black; box-shadow: 0 0 20px rgba(255,255,255,0.2);">Subscribe for more Tips</a>
     </section>
 
-    <section id="tools" class="reveal">
-        <h2 class="section-title" style="color: white;">Design <span>Lab</span></h2>
-        <p style="text-align: center; margin-bottom: 40px; color: #999;">Free mini-tools for creators built by me.</p>
-        <div class="tools-grid">
-            <div class="tool-card">
-                <h4>🎨 Palette Gen</h4>
-                <p>Generate brand colors instantly.</p>
+    <section id="faq" class="reveal" style="background: white;">
+        <h2 class="section-title">Common <span class="highlight">Questions</span></h2>
+        <p class="section-subtitle">Everything you need to know before we start.</p>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">Are you really offering this for free? <span>+</span></button>
+                <div class="faq-answer"><br>Yes! Because I am a young developer building my agency, I need a massive portfolio. Right now, I exchange my coding skills for the experience and your honest review.</div>
             </div>
-            <div class="tool-card">
-                <h4>✨ Name AI</h4>
-                <p>Brainstorm your next website name.</p>
+            <div class="faq-item">
+                <button class="faq-question">Can you link all my socials and TikTok? <span>+</span></button>
+                <div class="faq-answer"><br>Absolutely. I build sites specifically for creators, meaning social integration is a top priority. We can embed videos, link trees, and direct traffic wherever you need it.</div>
             </div>
-            <div class="tool-card">
-                <h4>🖼️ Image Zap</h4>
-                <p>Quick web-friendly image compression.</p>
+            <div class="faq-item">
+                <button class="faq-question">How do I update the site after you build it? <span>+</span></button>
+                <div class="faq-answer"><br>I write clean, organized code. Before handoff, I will explain exactly how you can change text or swap images yourself.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How long does a website take? <span>+</span></button>
+                <div class="faq-answer"><br>Most creator portfolios and landing pages take me about 5 to 7 days to fully code and polish, depending on the complexity of your animations.</div>
             </div>
         </div>
     </section>
 
     <section id="contact" class="reveal">
         <div class="contact-wrap">
-            <h2 style="margin-bottom: 10px; text-align: center;">Get Your Site</h2>
-            <p style="text-align: center; color: #059669; font-weight: bold; margin-bottom: 30px;">✨ Currently building for FREE to grow my portfolio!</p>
+            <h2 class="section-title" style="margin-bottom: 10px;">Claim Your <span class="highlight">Site</span></h2>
+            
+            <div class="social-proof-banner">
+                🎥 Note: Priority is given to clients willing to record a short 30-second video shoutout for my YouTube channel once the site is done!
+            </div>
             
             <form id="jobForm">
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" id="name" placeholder="Name" required>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Your Name / Brand</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Discord or Email</label>
+                        <input type="text" id="email" placeholder="alon#0000 or email@..." required>
+                    </div>
+                    <div class="form-group full">
+                        <label>What kind of site do you need?</label>
+                        <select id="type">
+                            <option value="Creator Portfolio">Creator / Influencer Portfolio</option>
+                            <option value="Small Business">Small Business Landing Page</option>
+                            <option value="Personal Blog">Personal Blog</option>
+                            <option value="Other">Other Custom Idea</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label>Tell me about your vision</label>
+                        <textarea id="details" rows="5" placeholder="I want a dark-themed site to show off my YouTube videos and merch..." required></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Email or Discord</label>
-                    <input type="text" id="email" placeholder="alon#0000 or alon@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Website Type</label>
-                    <select id="type">
-                        <option>Creator Portfolio</option>
-                        <option>Small Business Landing Page</option>
-                        <option>Personal Blog</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Project Details</label>
-                    <textarea id="details" rows="5" placeholder="Tell me about your vision..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%; border:none; cursor:pointer;">Send Request</button>
+                <button type="submit" class="btn btn-primary" style="width:100%; border:none; cursor:pointer; font-size: 1.1rem; margin-top: 10px;">Submit Request</button>
             </form>
-            
-            <div style="margin-top: 40px; text-align: center; border-top: 1px solid #ddd; padding-top: 30px;">
-                <p><strong>Discord:</strong> [Your_Discord_ID]</p>
-                <p><strong>Email:</strong> [Your_Email]@gmail.com</p>
-            </div>
         </div>
     </section>
 
-    <footer>
-        <p style="text-align:center; padding: 40px; color: #aaa;">&copy; 2026 AlonWebDesign | Built for the Future</p>
+    <footer id="footer-trigger">
+        <p style="font-weight: bold; color: var(--text-dark); margin-bottom: 5px;">AlonWebDesign</p>
+        <p>&copy; 2026 | Engineered for the future.</p>
     </footer>
 
-    <script>
-        // --- Cursor ---
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzVUyfOg1rKcestTYJeVXwJ3dPt8XoVQE",
+            authDomain: "alonwebdesign.firebaseapp.com",
+            projectId: "alonwebdesign",
+            storageBucket: "alonwebdesign.firebasestorage.app",
+            messagingSenderId: "816785627496",
+            appId: "1:816785627496:web:c7e706f83f1cb8cef35edd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- Custom Cursor ---
         const cursor = document.getElementById('custom-cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
+
             const trail = document.createElement('div');
             trail.className = 'cursor-trail';
             trail.style.left = e.clientX + 'px';
             trail.style.top = e.clientY + 'px';
             document.body.appendChild(trail);
+
             setTimeout(() => {
                 trail.style.transform = 'scale(0.1)';
                 trail.style.opacity = '0';
@@ -280,20 +410,100 @@
             }, 10);
         });
 
-        // --- Intersection Observer for Reveal ---
+        document.querySelectorAll('a, button, .faq-question, select, input, textarea').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%, -50%) scale(1.8)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+        });
+
+        // --- 3D Tilt Effect ---
+        const tiltCards = document.querySelectorAll('.tilt');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                card.style.transform = `rotateY(${(x - xc) / 20}deg) rotateX(${-(y - yc) / 20}deg) translateY(-10px)`;
+            });
+            card.addEventListener('mouseleave', () => card.style.transform = `rotateY(0deg) rotateX(0deg) translateY(0)`);
+        });
+
+        // --- FAQ Toggle ---
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('active')});
+                item.classList.toggle('active');
+            });
+        });
+
+        // --- Scroll Reveal ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) entry.target.classList.add('active');
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
-        }, { threshold: 0.1 });
-
+        }, { threshold: 0.15 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- Button Hover ---
-        document.querySelectorAll('.btn, .tool-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(1.8)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        // --- Firebase Form Submit ---
+        document.getElementById('jobForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = "Processing...";
+            
+            try {
+                await addDoc(collection(db, "jobs"), {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    type: document.getElementById('type').value, // NEW: Saves the dropdown choice
+                    details: document.getElementById('details').value,
+                    time: new Date()
+                });
+                alert("Request sent successfully! I will reach out to you shortly.");
+                e.target.reset();
+            } catch (err) { 
+                console.error(err);
+                alert("Error sending request. Please try again."); 
+            }
+            btn.innerText = originalText;
         });
+
+        // --- Secret Staff Panel ---
+        let count = 0;
+        document.getElementById('footer-trigger').addEventListener('click', () => {
+            count++;
+            if (count === 5) {
+                count = 0;
+                const p = prompt("Staff Access Code:");
+                if (p === "MONEYTIME10") {
+                    document.getElementById('staff-hq').style.display = "block";
+                    fetchLeads();
+                }
+            }
+        });
+
+        async function fetchLeads() {
+            const body = document.getElementById('hq-body');
+            body.innerHTML = "<tr><td colspan='5'>Fetching database...</td></tr>";
+            const q = query(collection(db, "jobs"), orderBy("time", "desc"));
+            const snap = await getDocs(q);
+            body.innerHTML = "";
+            snap.forEach(doc => {
+                const d = doc.data();
+                const type = d.type ? d.type : "N/A";
+                body.innerHTML += `<tr>
+                    <td>${d.time?.toDate().toLocaleDateString()}</td>
+                    <td><strong style="color:var(--primary-blue)">${d.name}</strong></td>
+                    <td>${d.email}</td>
+                    <td><span style="background:#eee; padding:3px 8px; border-radius:5px; font-size:0.8rem;">${type}</span></td>
+                    <td style="max-width:300px;">${d.details}</td>
+                </tr>`;
+            });
+        }
     </script>
 </body>
 </html>
